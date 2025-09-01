@@ -1,0 +1,109 @@
+[
+  {
+    "id": 1,
+    "name": "Iya Owolabi",
+    "avatar": "https://xsgames.co/randomusers/assets/avatars/female/23.jpg",
+    "lastMessage": "Sounds good to me! I'll get it over to you...",
+    "timestamp": "2025-08-29T11:40:00-05:00",
+    "unreadCount": 2,
+    "isOnline": true,
+    "role": "Project Manager",
+    "email": "iya.owolabi@example.com",
+    "phone": "+1 (555) 123-4567",
+    "organization": "Spherule",
+    "timezone": "PST",
+    "socials": {
+      "linkedin": "https://linkedin.com/in/iyaowolabi",
+      "facebook": "https://facebook.com/iyaowolabi"
+    },
+    "sharedFiles": [
+      { "name": "Project Brief.pdf", "size": "1.2 MB", "type": "pdf" },
+      { "name": "User Flow.fig", "size": "3.4 MB", "type": "fig" }
+    ],
+    "conversation": [
+      { "sender": "Iya Owolabi", "text": "Hey, how's the project coming along?", "timestamp": "10:20 AM" },
+      { "sender": "You", "text": "Pretty good! I'm just finishing up the design mockups. Should be ready for review this afternoon.", "timestamp": "10:22 AM" },
+      { "sender": "Iya Owolabi", "text": "Great to hear. Do you need any of the assets I mentioned last week?", "timestamp": "10:25 AM" },
+      { "sender": "Iya Owolabi", "text": "Sounds good to me! I'll get it over to you...", "timestamp": "10:30 AM" }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Glinda",
+    "avatar": "https://xsgames.co/randomusers/assets/avatars/female/44.jpg",
+    "lastMessage": "Let's touch base in the morning to finalize...",
+    "timestamp": "2025-08-29T09:45:00-05:00",
+    "unreadCount": 0,
+    "isOnline": false,
+    "role": "Lead Developer",
+    "email": "glinda.dev@example.com",
+    "phone": "+1 (555) 987-6543",
+    "organization": "Spherule",
+    "timezone": "EST",
+    "socials": {
+      "linkedin": "https://linkedin.com/in/glinda"
+    },
+    "sharedFiles": [
+      { "name": "API_Documentation.docx", "size": "876 KB", "type": "doc" },
+      { "name": "Frontend_Components.zip", "size": "12.1 MB", "type": "zip" }
+    ],
+    "conversation": [
+      { "sender": "You", "text": "Hey Glinda, I've pushed the latest changes to the staging server. Can you take a look?", "timestamp": "9:40 AM" },
+      { "sender": "Glinda", "text": "Sure, I'll check it out now. I have a couple of quick questions about the implementation.", "timestamp": "9:42 AM" },
+      { "sender": "Glinda", "text": "Let's touch base in the morning to finalize...", "timestamp": "9:45 AM" }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Gerard",
+    "avatar": "https://xsgames.co/randomusers/assets/avatars/male/56.jpg",
+    "lastMessage": "The new design looks great! Good job.",
+    "timestamp": "2025-08-28T16:00:00-05:00",
+    "unreadCount": 0,
+    "isOnline": true,
+    "role": "UX Designer",
+    "email": "gerard.design@example.com",
+    "phone": "+1 (555) 234-5678",
+    "organization": "Bespire",
+    "timezone": "CST",
+    "socials": {
+      "linkedin": "https://linkedin.com/in/gerarddesign"
+    },
+    "sharedFiles": [
+      { "name": "Dashboard_Mockups.psd", "size": "25.8 MB", "type": "psd" }
+    ],
+    "conversation": [
+      { "sender": "You", "text": "The final designs for the dashboard are ready for your review.", "timestamp": "Yesterday" },
+      { "sender": "Gerard", "text": "Awesome, I'll take a look right now.", "timestamp": "Yesterday" },
+      { "sender": "Gerard", "text": "The new design looks great! Good job.", "timestamp": "Yesterday" }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Michelle",
+    "avatar": "https://xsgames.co/randomusers/assets/avatars/female/59.jpg",
+    "lastMessage": "Perfect, thanks!",
+    "timestamp": "2025-08-27T11:00:00-05:00",
+    "unreadCount": 1,
+    "isOnline": false,
+    "role": "Client",
+    "email": "michelle@clientcorp.com",
+    "phone": "+1 (555) 876-5432",
+    "organization": "Client Corp",
+    "timezone": "PST",
+    "socials": {
+      "linkedin": "https://linkedin.com/in/michelleclient",
+      "facebook": "https://facebook.com/michelleclient"
+    },
+    "sharedFiles": [
+      { "name": "Presentation_Deck.pptx", "size": "5.6 MB", "type": "pptx" },
+      { "name": "Brand_Assets.zip", "size": "32.4 MB", "type": "zip" },
+      { "name": "Quarterly_Report.pdf", "size": "2.1 MB", "type": "pdf" }
+    ],
+    "conversation": [
+      { "sender": "Michelle", "text": "Can you send over the latest files for the client presentation?", "timestamp": "Yesterday" },
+      { "sender": "You", "text": "Just sent them to your email.", "timestamp": "Yesterday" },
+      { "sender": "Michelle", "text": "Perfect, thanks!", "timestamp": "Yesterday" }
+    ]
+  }
+]

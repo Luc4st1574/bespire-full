@@ -1,0 +1,1143 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type WorkspaceMember {
+  user: ID!
+  role: WorkspaceMemberRole!
+  title: String
+  teamRole: String
+  joinedAt: DateTime!
+}
+
+enum WorkspaceMemberRole {
+  ADMIN
+  USER
+  VIEWER
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Comment {
+  _id: ID!
+  user: ID!
+  linkedToId: ID!
+  linkedToType: String!
+  text: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type File {
+  _id: ID!
+  name: String!
+  type: String!
+  url: String
+  ext: String
+  size: Float
+  uploadedBy: ID
+  uploadedAt: DateTime
+  parentId: ID
+  workspaceId: ID
+  deletedAt: DateTime
+  status: String
+  tags: [String!]
+  access: [String!]
+  linkedToId: ID
+  linkedToType: String
+  lowercaseName: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Tag {
+  _id: ID!
+  name: String!
+  lowercaseName: String!
+  workspaceId: ID!
+  createdBy: ID
+}
+
+type ActivityLog {
+  _id: ID!
+  user: ID!
+  linkedToId: ID!
+  linkedToType: String!
+  action: String!
+  activityText: String
+  meta: JSON
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type Link {
+  _id: ID!
+  url: String!
+  title: String
+  favicon: String
+  createdBy: ID!
+  linkedToId: ID!
+  linkedToType: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Company {
+  _id: ID!
+  name: String!
+  website: String
+  industry: String
+  size: String
+  logoUrl: String
+  location: String
+  brandArchetype: String
+  communicationStyle: String
+  elevatorPitch: String
+  mission: String
+  vision: String
+  valuePropositions: String
+  notes: String
+  contactNumber: String
+  countryCode: String
+  createdBy: ID!
+}
+
+type PreRegisterClientResponse {
+  success: Boolean!
+  message: String!
+  userId: String!
+  companyId: String
+  workspaceId: String!
+}
+
+type AddClientToCompanyResponse {
+  success: Boolean!
+  message: String!
+  userId: String!
+  workspaceId: String!
+}
+
+type EditClientInfoResponse {
+  success: Boolean!
+  message: String!
+  userId: String!
+  companyId: String!
+  workspaceId: String!
+}
+
+type UserProfileOutput {
+  _id: ID!
+  email: String!
+  firstName: String
+  lastName: String
+  contactNumber: String
+  companyName: String
+  companyRole: String
+  avatarUrl: String
+  teamRole: String
+  registrationStatus: String!
+  hasVisitedDashboard: Boolean
+  role: String
+  workspaceSelected: String
+  isInternalTeam: Boolean
+  preferences: JSONObject
+}
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
+type User {
+  _id: ID!
+  lastName: String
+  firstName: String
+  avatarUrl: String
+  teamRole: String
+  email: String!
+  registrationStatus: String!
+  hasVisitedDashboard: Boolean!
+}
+
+type LoginResponse {
+  token: String!
+  user: User!
+}
+
+type CreateUserDto {
+  user: User!
+}
+
+type Font {
+  url: String!
+  name: String
+  category: String
+  family: String
+  fileId: String
+}
+
+type Logos {
+  url: String!
+  fileId: String
+  name: String
+}
+
+type Brand {
+  _id: ID!
+  slug: String!
+  name: String!
+  user: String!
+  workspace: String!
+  logos: [Logos!]
+  fonts: [Font!]
+  primaryColors: [String!]
+  secondaryColors: [String!]
+  archetype: String
+  description: String
+  buyer: String
+  tone: String
+  likes: [String!]
+  dislikes: [String!]
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Service {
+  _id: ID!
+  title: String!
+  description: String!
+  credits: Int!
+  type: String!
+  status: String!
+  inclusions: [String!]!
+  exclusions: [String!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type LinkInfo {
+  url: String!
+  title: String
+  favicon: String
+}
+
+type AttachmentInfo {
+  name: String!
+  url: String!
+  ext: String
+  size: Float
+  uploadedBy: String
+  uploadedAt: DateTime
+}
+
+type UserAssigned {
+  id: ID!
+  name: String!
+  avatarUrl: String
+  teamRole: String
+}
+
+type RequestResponseForList {
+  id: ID!
+  title: String!
+  client: String
+  createdAt: String!
+  category: String!
+  dueDate: String
+  assignees: [UserAssigned!]!
+  commentsCount: Int!
+  attachmentsCount: Int!
+  subtasksCount: Int!
+  credits: Int!
+  parentRequest: String
+  priority: String!
+  status: String!
+}
+
+type RequestCreateResponse {
+  _id: ID!
+  title: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ClientWithWorkspaceInfo {
+  id: String!
+  name: String!
+  email: String!
+  avatarUrl: String
+  roleTitle: String
+  workspaceId: String!
+  workspaceName: String!
+  companyId: String!
+  companyName: String!
+  companyWebsite: String
+  companyLocation: String
+  isWorkspaceOwner: Boolean!
+  workspaceRole: String
+  phoneNumber: String
+  countryCode: String
+  notes: String
+  successManagerId: String
+  successManagerName: String
+}
+
+type UpdateClientInfoResponse {
+  success: Boolean!
+  message: String!
+  clientId: String
+  workspaceId: String
+  companyId: String
+}
+
+type ClientPlan {
+  name: String!
+  icon: String
+  bg: String
+}
+
+type ClientListAdmin {
+  id: String!
+  name: String!
+  email: String!
+  avatarUrl: String
+  roleTitle: String
+  workspaceId: String!
+  workspaceName: String!
+  companyId: String!
+  companyName: String!
+  plan: ClientPlan
+  rating: Float!
+  timeRequest: String
+  revisions: String
+  lastSession: DateTime
+  contractStart: DateTime
+  status: String!
+}
+
+type ClientDetail {
+  id: String!
+  name: String!
+  email: String!
+  phone: String
+  website: String
+  location: String
+  timezone: String
+  role: String!
+  organization: String
+  plan: ClientPlan
+  contractStart: DateTime
+  contractRenew: DateTime
+  successManager: String
+  companyId: String
+  companyData: Company
+}
+
+type WorkspaceBasic {
+  _id: ID!
+  name: String!
+  owner: User!
+  focusAreas: [String!]
+  currentStep: Float!
+  onboardingCompleted: Boolean!
+  hasPaid: Boolean
+  companyName: String
+  companyImg: String
+  companyWebsite: String
+  companyIndustry: String
+  companySize: String
+  location: String
+  brandArchetype: String
+  communicationStyle: String
+  elevatorPitch: String
+  mission: String
+  vision: String
+  valuePropositions: String
+  defaultRequestsView: String
+  quickLinks: Boolean
+  getStarted: Boolean
+  plan: String
+  credits: Float
+  stripeCustomerId: String
+  planCancelPending: Boolean
+  planEndsAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type WorkspaceMemberEntity {
+  user: User!
+  role: String!
+  joinedAt: DateTime!
+}
+
+type WorkspaceMemberDto {
+  _id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  avatarUrl: String
+  role: String!
+  title: String
+  teamRole: String
+  joinedAt: DateTime!
+}
+
+type WorkspaceCompanyQuery {
+  companyName: String
+  companyImg: String
+  companyWebsite: String
+  companyIndustry: String
+  companySize: String
+  location: String
+  brandArchetype: String
+  communicationStyle: String
+  elevatorPitch: String
+  mission: String
+  vision: String
+  valuePropositions: String
+}
+
+type PaymentMethodDto {
+  brand: String!
+  last4: String!
+}
+
+type WorkspaceBillingDto {
+  name: String!
+  currentPlan: String!
+  creditUsage: String!
+  hasPaid: Boolean!
+  stripeCustomerId: String
+  paymentMethod: PaymentMethodDto
+}
+
+type InvoiceDto {
+  id: String!
+  date: String!
+  amount: String!
+  status: String!
+  pdfUrl: String!
+  plan: String!
+}
+
+type Plan {
+  id: String!
+  slug: String!
+  name: String!
+  description: String
+  stripePriceId: String!
+  price: Int!
+  creditsPerMonth: Int!
+  brandsAllowed: Int!
+  activeOrdersAllowed: Int!
+  includedServices: [String!]!
+  excludedServices: [String!]!
+  active: Boolean!
+}
+
+type RequestLink {
+  url: String!
+  title: String
+  favicon: String
+}
+
+type RequestAttachment {
+  id: ID!
+  name: String!
+  url: String!
+  ext: String!
+  size: Float!
+  uploadedBy: String!
+  uploadedAt: String!
+}
+
+type RequestAssignee {
+  id: ID!
+  name: String!
+  teamRole: String
+  avatarUrl: String
+}
+
+type RequestComment {
+  id: ID!
+  user: RequestAssignee!
+  createdAt: String!
+  text: String
+  type: String!
+  activityText: String
+}
+
+type RequestSubtask {
+  id: ID!
+  title: String!
+  status: String!
+  dueDate: String!
+  internalDueDate: String
+  assignees: [RequestAssignee!]!
+}
+
+type RequestClient {
+  id: ID!
+  name: String!
+  avatar: String!
+}
+
+type Requester {
+  id: ID!
+  name: String!
+  avatarUrl: String!
+  teamRole: String!
+}
+
+type TimeSpent {
+  hours: Float!
+  minutes: Float!
+}
+
+type RequestDetail {
+  id: ID!
+  title: String!
+  details: String!
+  priority: String!
+  status: String!
+  client: RequestClient!
+  requester: Requester!
+  assignees: [RequestAssignee!]!
+  createdAt: String!
+  dueDate: String!
+  internalDueDate: String
+  timeSpent: TimeSpent!
+  category: String!
+  subType: String!
+  credits: Float!
+  links: [RequestLink!]!
+  attachments: [RequestAttachment!]!
+  subtasks: [RequestSubtask!]!
+  comments: [RequestComment!]!
+  parentRequest: String
+}
+
+type AssigneeOutput {
+  _id: ID!
+  linkedToId: String!
+  linkedToType: String!
+  user: RequestAssignee
+  assignedBy: ID!
+  createdAt: DateTime!
+}
+
+type NotificationResponse {
+  _id: ID!
+  title: String!
+  description: String!
+  message: String
+  type: String!
+  category: String!
+  read: Boolean!
+  date: DateTime!
+  avatar: String
+}
+
+type ReviewResponse {
+  _id: ID!
+  linkedToId: ID!
+  linkedToType: String!
+  rating: Int!
+  feedback: String
+  createdAt: DateTime!
+}
+
+type FeedbackEntity {
+  id: ID!
+  userId: String!
+  category: String!
+  title: String!
+  details: String!
+  sendCopy: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type RecurrenceRule {
+  frequency: String!
+  until: DateTime
+}
+
+type EventTypeEntity {
+  id: ID!
+  name: String!
+  backgroundColor: String!
+  borderColor: String!
+}
+
+type Calendar {
+  id: ID!
+  title: String!
+  start: DateTime!
+  end: DateTime!
+  allDay: Boolean!
+  isArchived: Boolean!
+  eventType: EventTypeEntity!
+  assignedTo: AssignedTo
+  description: String
+  location: String
+  invitedPeople: [UserAssigned!]!
+  visibility: String!
+  notification: String
+  links: [Link!]!
+  files: [File!]!
+}
+
+union AssignedTo = UserAssigned | Company
+
+type Query {
+  getUserProfile: UserProfileOutput!
+  healthCheck: String!
+  checkUserExists(email: String!): Boolean!
+  searchMembersBespire(search: String!): [UserAssigned!]!
+  getSuccessManagers: [UserAssigned!]!
+  getAllClients: [ClientWithWorkspaceInfo!]!
+  getClientListAdmin: [ClientListAdmin!]!
+  getClient(id: String!): ClientDetail!
+  getWorkspaceBasisById(workspaceId: String!): WorkspaceBasic!
+  getMembersBespire(search: String): [UserAssigned!]!
+  membersByLinkedTo(linkedToId: String!): [UserAssigned!]!
+  checkMemberExist(workspaceId: String!, email: String!): Boolean!
+  getWorkspaceMembers(workspaceId: String!): [WorkspaceMemberDto!]!
+  getCompanyDataByWorkspaceId(workspaceId: String!): WorkspaceCompanyQuery!
+  getWorkspaceBilling(workspaceId: String!): WorkspaceBillingDto!
+  getWorkspaceInvoices(workspaceId: String!): [InvoiceDto!]!
+  reviewsByRequest(requestId: String!): [ReviewResponse!]!
+  notifications(skip: Int! = 0, limit: Int! = 20): [NotificationResponse!]!
+  unreadNotificationsCount: Int!
+  getCommentsForEntity(linkedToId: ID!): [Comment!]!
+  requestsListForInternal: [RequestResponseForList!]!
+  getRequestList: [RequestResponseForList!]!
+  requestDetail(id: String!): RequestDetail!
+  getTimeLineByRequest(id: String!): [RequestComment!]!
+  getSubtasksByRequest(id: String!): [RequestSubtask!]!
+  servicesActive: [Service!]!
+  services: [Service!]!
+  service(id: String!): Service!
+  assigneesByEntity(linkedToId: String!, linkedToType: String!): [AssigneeOutput!]!
+  filesByLinkedToId(linkedToId: String!): [RequestAttachment!]!
+  listFiles(input: ListFilesInput!): [File!]!
+  getFileById(fileId: String!): File
+  getFolderPath(folderId: String!): [File!]!
+  listTags(workspaceId: String!, search: String): [Tag!]!
+  activityLogsByEntity(linkedToId: String!, linkedToType: String!): [ActivityLog!]!
+  linksByLinkedToId(linkedToId: String!): [Link!]!
+  brandsForCurrentUser: [Brand!]!
+  brandsForWorkspace(workspaceId: String!): [Brand!]!
+  getAllBrands(workspace: String!): [Brand!]!
+  calendar(workspaceId: ID!, start: String!, end: String!): [Calendar!]!
+  calendarEvent(id: ID!): Calendar!
+  eventTypes(workspaceId: ID!): [EventTypeEntity!]!
+}
+
+input ListFilesInput {
+  workspaceId: String!
+  parentId: String
+  search: String
+  includeDeleted: Boolean
+  type: String
+}
+
+type Mutation {
+  CreateUser(input: CreateUserInputByAdmin!): CreateUserDto!
+  updateUser(input: UpdateUserInput!): String!
+  register(input: CreateUserInput!): LoginResponse!
+  preRegisterClient(input: PreRegisterClientInput!): PreRegisterClientResponse!
+  addClientToCompany(input: AddClientToCompanyInput!): AddClientToCompanyResponse!
+  editClientInfo(input: EditClientInfoInput!): EditClientInfoResponse!
+  updateClientInfo(input: UpdateClientInfoInput!): UpdateClientInfoResponse!
+  updateOnboardingProgress(input: JSON!): Boolean!
+  completeOnboarding(input: OnboardingInput!): Boolean!
+  login(input: LoginUserInput!): LoginResponse!
+  refreshToken: LoginResponse!
+  markUserAsPaid: Boolean!
+  forgotPassword(email: String!): Boolean!
+  resetPassword(token: String!, newPassword: String!): Boolean!
+  updateUserPreferences(input: UpdatePreferencesInput!): Boolean!
+  updateWorkspaceCompany(workspaceId: String!, input: UpdateWorkspaceCompanyInput!): String!
+  updateFocusAreas(workspaceId: String!, focusAreas: [String!]!): String!
+  updateCurrentStep(workspaceId: String!, currentStep: Float!): String!
+  inviteMember(workspaceId: String!, member: InviteMemberInput!): String!
+  updateCompanyData(workspaceId: String!, input: UpdateWorkspaceCompanyInput!): String!
+  updateWorkspaceSettings(workspaceId: String!, input: UpdateWorkspaceSettingsInput!): String!
+  removeMember(input: RemoveMemberInput!): Boolean!
+  updateMemberRole(input: UpdateMemberRoleInput!): Boolean!
+  createCustomerPortalSession: String!
+  updateDefaultCard(workspaceId: String!, paymentMethodId: String!): Boolean!
+  createSetupIntent(workspaceId: String!): String!
+  cancelWorkspacePlan(input: CancelPlanInput!): Boolean!
+  assignSuccessManager(input: AssignSuccessManagerInput!): Boolean!
+  updateCompany(id: String!, input: UpdateCompanyInput!): String!
+  createPlan(createPlanInput: CreatePlanInput!): Plan!
+  leaveReview(input: CreateReviewInput!): ReviewResponse!
+  markNotificationAsRead(notificationId: String!): Boolean!
+  markAllNotificationsAsRead: Boolean!
+  createComment(input: CreateCommentInput!): Comment!
+  createRequest(input: CreateRequestInput!): RequestCreateResponse!
+  updateRequestAssignees(input: UpdateAssigneesInput!): String!
+  updateRequestFields(input: UpdateRequestFieldsInput!): String!
+  createService(input: CreateServiceInput!): Service!
+  updateService(input: UpdateServiceInput!): Service!
+  removeService(id: String!): Service!
+  addAssignee(input: CreateAssigneeInput!): AssigneeOutput!
+  removeAssignee(linkedToId: String!, linkedToType: String!, user: String!): Boolean!
+  createFile(input: CreateFileInput!): File!
+  moveFileToTrash(fileId: String!): File!
+  restoreFile(fileId: String!): File!
+  deleteFile(fileId: String!): Boolean!
+  createFolder(input: CreateFolderInput!): File!
+  updateFile(fileId: String!, input: CreateFileInput!): File!
+  createTag(workspaceId: String!, name: String!, createdBy: String): Tag!
+  updateFileTags(fileId: String!, tags: [String!]!): File!
+  updateFileName(fileId: String!, newName: String!): File!
+  createLink(input: CreateLinkInput!): Link!
+  deleteLink(linkId: String!): Boolean!
+  createCheckoutSession(plan: String!, workspaceId: String!, successUrl: String, cancelUrl: String): String!
+  createFeedback(input: CreateFeedbackInput!): FeedbackEntity!
+  createBrand(createBrandInput: CreateBrandInput!): String!
+  updateBrand(updateBrandInput: UpdateBrandInput!): Brand!
+  removeBrand(id: String!, workspaceId: String!): String!
+  createCalendar(createCalendarInput: CreateCalendarInput!): Calendar!
+  updateCalendar(updateCalendarInput: UpdateCalendarInput!): Calendar!
+  removeCalendar(id: ID!): Calendar!
+}
+
+input CreateUserInputByAdmin {
+  email: String!
+  password: String!
+  role: String!
+  teamRole: String
+}
+
+input UpdateUserInput {
+  firstName: String
+  lastName: String
+  profilePicture: String
+  currentPassword: String
+  newPassword: String
+}
+
+input CreateUserInput {
+  email: String!
+  password: String!
+  firstName: String
+  lastName: String
+  contactNumber: String
+  companyName: String
+  companyRole: String
+}
+
+input PreRegisterClientInput {
+  email: String!
+  clientName: String!
+  roleTitle: String!
+  phoneNumber: String
+  countryCode: String
+  companyName: String!
+  companyWebsite: String
+  companyLocation: String
+  successManager: String
+  teamRole: String
+  notes: String
+  sendInvitation: Boolean! = true
+  isTeamMember: Boolean! = false
+}
+
+input AddClientToCompanyInput {
+  email: String!
+  clientName: String!
+  roleTitle: String!
+  phoneNumber: String
+  countryCode: String
+  workspaceId: ID!
+  notes: String
+  sendInvitation: Boolean! = true
+}
+
+input EditClientInfoInput {
+  userId: ID!
+  email: String
+  clientName: String
+  roleTitle: String
+  phoneNumber: String
+  countryCode: String
+  companyName: String
+  companyWebsite: String
+  companyLocation: String
+  successManager: String
+  notes: String
+}
+
+input UpdateClientInfoInput {
+  clientId: String!
+  email: String
+  clientName: String
+  roleTitle: String
+  phoneNumber: String
+  countryCode: String
+  workspaceRole: String
+  companyName: String
+  companyWebsite: String
+  companyLocation: String
+  successManager: String
+  notes: String
+  sendConfirmation: Boolean! = false
+}
+
+input OnboardingInput {
+  plan: String!
+  focusAreas: [String!]!
+  teamMembers: [TeamMemberInput!]!
+  companyInfo: CompanyInfoInput!
+  currentStep: Int
+}
+
+input TeamMemberInput {
+  email: String!
+  role: String!
+}
+
+input CompanyInfoInput {
+  logo: String!
+  companyName: String!
+  industry: String!
+  location: String!
+  website: String!
+  size: String!
+  brandArchetype: String!
+  elevatorPitch: String!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+input UpdatePreferencesInput {
+  timezone: String
+  notifications: Boolean
+  channels: ChannelsInput
+  newsletter: Boolean
+  specific: SpecificNotificationsInput
+  hideQuickLinks: Boolean
+  hideGetStarted: Boolean
+}
+
+input ChannelsInput {
+  email: Boolean
+  inApp: Boolean
+  push: Boolean
+}
+
+input SpecificNotificationsInput {
+  requestsAlert: Boolean
+  brandsUpdate: Boolean
+  filesUpdate: Boolean
+  mentionsComments: Boolean
+  sharedItems: Boolean
+  lowOnCredits: Boolean
+  paymentAlerts: Boolean
+}
+
+input UpdateWorkspaceCompanyInput {
+  companyName: String
+  companyImg: String
+  companyWebsite: String
+  companyIndustry: String
+  companySize: String
+  location: String
+  brandArchetype: String
+  communicationStyle: String
+  elevatorPitch: String
+  mission: String
+  vision: String
+  valuePropositions: String
+}
+
+input InviteMemberInput {
+  email: String!
+  role: String!
+  title: String
+  teamRole: String
+}
+
+input UpdateWorkspaceSettingsInput {
+  workspaceName: String
+  defaultRequestsView: String
+  quickLinks: Boolean
+  getStarted: Boolean
+}
+
+input RemoveMemberInput {
+  workspaceId: String!
+  memberId: String!
+}
+
+input UpdateMemberRoleInput {
+  workspaceId: String!
+  memberId: String!
+  role: String!
+}
+
+input CancelPlanInput {
+  workspaceId: String!
+  reason: String!
+  other: String
+}
+
+input AssignSuccessManagerInput {
+  workspaceId: ID!
+  successManagerId: ID!
+}
+
+input UpdateCompanyInput {
+  name: String
+  website: String
+  industry: String
+  size: String
+  logoUrl: String
+  location: String
+  brandArchetype: String
+  communicationStyle: String
+  elevatorPitch: String
+  mission: String
+  vision: String
+  valuePropositions: String
+  notes: String
+  contactNumber: String
+  countryCode: String
+}
+
+input CreatePlanInput {
+  slug: String!
+  name: String!
+  description: String
+  stripePriceId: String!
+  price: Int!
+  creditsPerMonth: Int!
+  brandsAllowed: Int! = 1
+  activeOrdersAllowed: Int! = 1
+  includedServices: [String!]! = []
+  excludedServices: [String!]! = []
+  active: Boolean! = true
+}
+
+input CreateReviewInput {
+  linkedToId: ID!
+  linkedToType: String!
+  rating: Int!
+  feedback: String
+}
+
+input CreateCommentInput {
+  linkedToId: ID!
+  linkedToType: String!
+  text: String
+}
+
+input CreateRequestInput {
+  title: String!
+  details: String!
+  brand: ID!
+  service: ID!
+  dueDate: String
+  priority: String
+  links: [LinkInfoInput!]
+  attachments: [AttachmentInfoInput!]
+  workspace: ID!
+  parentRequest: String
+}
+
+input LinkInfoInput {
+  url: String!
+  title: String
+  favicon: String
+}
+
+input AttachmentInfoInput {
+  name: String!
+  url: String!
+  ext: String
+  size: Float
+  uploadedBy: String
+  uploadedAt: DateTime
+  fileId: String
+}
+
+input UpdateAssigneesInput {
+  requestId: ID!
+  assignees: [ID!]!
+}
+
+input UpdateRequestFieldsInput {
+  requestId: ID!
+  dueDate: DateTime
+  internalDueDate: DateTime
+  details: String
+  title: String
+  status: String
+  priority: String
+}
+
+input CreateServiceInput {
+  title: String!
+  description: String!
+  credits: Int!
+  type: String!
+  status: String! = "active"
+  inclusions: [String!]! = []
+  exclusions: [String!]! = []
+}
+
+input UpdateServiceInput {
+  title: String
+  description: String
+  credits: Int
+  type: String
+  status: String = "active"
+  inclusions: [String!] = []
+  exclusions: [String!] = []
+  id: String!
+}
+
+input CreateAssigneeInput {
+  linkedToId: String!
+  linkedToType: String! = "request"
+  user: String!
+}
+
+input CreateFileInput {
+  name: String!
+  type: String!
+  url: String
+  ext: String
+  size: Float
+  parentId: String
+  status: String
+  workspaceId: String
+  tags: [String!]
+  access: [String!]
+  linkedToId: String
+  linkedToType: String
+}
+
+input CreateFolderInput {
+  name: String!
+  workspaceId: ID!
+  parentId: ID
+  tags: [String!]
+  access: [String!]
+  type: String!
+}
+
+input CreateLinkInput {
+  url: String!
+  title: String
+  favicon: String
+  linkedToId: String!
+  linkedToType: String
+}
+
+input CreateFeedbackInput {
+  category: String!
+  title: String!
+  details: String!
+  sendCopy: Boolean!
+}
+
+input CreateBrandInput {
+  name: String!
+  workspace: ID!
+  logos: [LogosInput!]
+  fonts: [FontInput!]
+  primaryColors: [String!]
+  secondaryColors: [String!]
+  archetype: String
+  description: String
+  buyer: String
+  tone: String
+  likes: [String!]
+  dislikes: [String!]
+}
+
+input LogosInput {
+  url: String!
+  fileId: String
+}
+
+input FontInput {
+  url: String!
+  name: String
+  category: String
+  family: String
+  fileId: String
+}
+
+input UpdateBrandInput {
+  name: String
+  workspace: ID
+  logos: [LogosInput!]
+  fonts: [FontInput!]
+  primaryColors: [String!]
+  secondaryColors: [String!]
+  archetype: String
+  description: String
+  buyer: String
+  tone: String
+  likes: [String!]
+  dislikes: [String!]
+  id: ID!
+}
+
+input CreateCalendarInput {
+  title: String!
+  startDate: DateTime!
+  endDate: DateTime
+  allDay: Boolean!
+  isArchived: Boolean! = false
+  eventType: ID!
+  assignedToUser: ID
+  assignedToCompany: ID
+  invitedPeople: [ID!]! = []
+  workspace: ID!
+  description: String
+  location: String
+  visibility: String! = "public"
+  notification: String
+  links: [String!]
+  files: [ID!]
+}
+
+input UpdateCalendarInput {
+  title: String
+  startDate: DateTime
+  endDate: DateTime
+  allDay: Boolean
+  isArchived: Boolean = false
+  eventType: ID
+  assignedToUser: ID
+  assignedToCompany: ID
+  invitedPeople: [ID!] = []
+  workspace: ID
+  description: String
+  location: String
+  visibility: String = "public"
+  notification: String
+  links: [String!]
+  files: [ID!]
+  id: ID!
+}

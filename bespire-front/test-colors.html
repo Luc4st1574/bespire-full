@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Colores de Marca</title>
+    <style>
+        :root {
+            --color-brand-dark: #004049;
+            --color-brand-neon: #CEFFA3;
+            --color-brand-pale: #E3E9DE;
+            --color-brand-light: #FBFFF7;
+            --color-brand-green-light: #F3FEE7;
+            --color-brand-footer: #EBFDD8;
+            --color-brand-blue: #3A76FF;
+            --color-brand-yellow: #FFF780;
+            --color-brand-red: #F01616;
+            --color-brand-orange: #FDC870;
+            --color-brand-dark-blue: #11183F;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        
+        .color-box {
+            padding: 24px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .brand-dark { background-color: var(--color-brand-dark); color: white; }
+        .brand-neon { background-color: var(--color-brand-neon); color: black; }
+        .brand-pale { background-color: var(--color-brand-pale); color: black; }
+        .brand-light { background-color: var(--color-brand-light); color: black; border: 1px solid #ccc; }
+        .brand-green-light { background-color: var(--color-brand-green-light); color: black; }
+        .brand-footer { background-color: var(--color-brand-footer); color: black; }
+        .brand-blue { background-color: var(--color-brand-blue); color: white; }
+        .brand-yellow { background-color: var(--color-brand-yellow); color: black; }
+        .brand-red { background-color: var(--color-brand-red); color: white; }
+        .brand-orange { background-color: var(--color-brand-orange); color: black; }
+        .brand-dark-blue { background-color: var(--color-brand-dark-blue); color: white; }
+        
+        h1 {
+            color: var(--color-brand-dark);
+            margin-bottom: 32px;
+        }
+        
+        .info {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            border-left: 4px solid var(--color-brand-blue);
+        }
+    </style>
+</head>
+<body>
+    <h1>Test de Colores de Marca</h1>
+    
+    <div class="info">
+        <h3>Información del problema:</h3>
+        <p><strong>Node.js actual:</strong> v14.21.3</p>
+        <p><strong>Requerido:</strong> Node.js 18+ para Next.js 15 y Tailwind v4</p>
+        <p><strong>Solución:</strong> Actualizar Node.js o downgrade de dependencias</p>
+    </div>
+    
+    <h2>Paleta de Colores de Marca</h2>
+    <div class="grid">
+        <div class="color-box brand-dark">brand-dark<br>#004049</div>
+        <div class="color-box brand-neon">brand-neon<br>#CEFFA3</div>
+        <div class="color-box brand-pale">brand-pale<br>#E3E9DE</div>
+        <div class="color-box brand-light">brand-light<br>#FBFFF7</div>
+        <div class="color-box brand-green-light">brand-green-light<br>#F3FEE7</div>
+        <div class="color-box brand-footer">brand-footer<br>#EBFDD8</div>
+        <div class="color-box brand-blue">brand-blue<br>#3A76FF</div>
+        <div class="color-box brand-yellow">brand-yellow<br>#FFF780</div>
+        <div class="color-box brand-red">brand-red<br>#F01616</div>
+        <div class="color-box brand-orange">brand-orange<br>#FDC870</div>
+        <div class="color-box brand-dark-blue">brand-dark-blue<br>#11183F</div>
+    </div>
+    
+    <h2>Posibles Soluciones</h2>
+    <div style="background: white; padding: 16px; border-radius: 8px;">
+        <h3>Opción 1: Actualizar Node.js (Recomendado)</h3>
+        <code>
+            # Usando nvm (si está instalado)<br>
+            nvm install 18<br>
+            nvm use 18<br><br>
+            
+            # O descargar desde nodejs.org<br>
+            # Instalar Node.js 18 LTS o superior
+        </code>
+        
+        <h3>Opción 2: Downgrade temporal de dependencias</h3>
+        <code>
+            # Cambiar en package.json:<br>
+            "next": "14.2.15",<br>
+            "tailwindcss": "^3.4.0"<br><br>
+            
+            # Y ejecutar:<br>
+            npm install
+        </code>
+        
+        <h3>Opción 3: Usar colores inline mientras tanto</h3>
+        <p>Usar style={{backgroundColor: 'var(--color-brand-dark)'}} en lugar de className="bg-brand-dark"</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,362 @@
+[
+  {
+    "date": "2025-07-01",
+    "title": "Q3 Planning Session",
+    "type": "Meetings",
+    "startTime": "10:00am",
+    "endTime": "12:00pm",
+    "bgColor": "bg-[#defcbd]",
+    "rectColor": "bg-[#b8df91]"
+  },
+  {
+    "date": "2025-07-04",
+    "title": "Independence Day (USA)",
+    "type": "Holidays",
+    "startTime": "9:00am",
+    "endTime": "5:00pm",
+    "bgColor": "bg-[#ebf1ff]",
+    "rectColor": "bg-[#3a76ff]"
+  },
+  {
+    "date": "2025-07-07",
+    "title": "Start Website Redesign Project",
+    "type": "Project Requests",
+    "startTime": "9:30am",
+    "endTime": "10:00am",
+    "bgColor": "bg-[#fff8ec]",
+    "rectColor": "bg-[#ca820e]"
+  },
+  {
+    "date": "2025-07-09",
+    "title": "Submit July Expense Reports",
+    "type": "Tasks",
+    "startTime": "4:00pm",
+    "endTime": "4:30pm",
+    "bgColor": "bg-[#f6f8f5]",
+    "rectColor": "bg-[#697d67]"
+  },
+  {
+    "date": "2025-07-10",
+    "title": "Renew Figma Subscription",
+    "type": "Contract Renewal",
+    "startTime": "11:00am",
+    "endTime": "11:15am",
+    "bgColor": "bg-[#fffef6]",
+    "rectColor": "bg-[#facb40]"
+  },
+  {
+    "date": "2025-07-15",
+    "title": "Mid-month Project Sync",
+    "type": "Meetings",
+    "startTime": "2:00pm",
+    "endTime": "3:00pm",
+    "bgColor": "bg-[#defcbd]",
+    "rectColor": "bg-[#b8df91]"
+  },
+  {
+    "date": "2025-07-18",
+    "title": "Team Lunch",
+    "type": "Meetings",
+    "startTime": "12:30pm",
+    "endTime": "1:30pm",
+    "bgColor": "bg-[#defcbd]",
+    "rectColor": "bg-[#b8df91]"
+  },
+  {
+    "date": "2025-07-21",
+    "title": "Vacation",
+    "type": "Time Off",
+    "startTime": "9:00am",
+    "endTime": "5:00pm",
+    "bgColor": "bg-[#ffe8e8]",
+    "rectColor": "bg-[#f01616]"
+  },
+  {
+    "date": "2025-07-22",
+    "title": "Vacation",
+    "type": "Time Off",
+    "startTime": "9:00am",
+    "endTime": "5:00pm",
+    "bgColor": "bg-[#ffe8e8]",
+    "rectColor": "bg-[#f01616]"
+  },
+  {
+    "date": "2025-07-28",
+    "title": "Fiestas Patrias (Peru)",
+    "type": "Holidays",
+    "startTime": "9:00am",
+    "endTime": "5:00pm",
+    "bgColor": "bg-[#ebf1ff]",
+    "rectColor": "bg-[#3a76ff]"
+  },
+  {
+    "date": "2025-07-29",
+    "title": "Fiestas Patrias (Peru)",
+    "type": "Holidays",
+    "startTime": "9:00am",
+    "endTime": "5:00pm",
+    "bgColor": "bg-[#ebf1ff]",
+    "rectColor": "bg-[#3a76ff]"
+  },
+  {
+    "date": "2025-08-01",
+    "title": "Personal Day",
+    "type": "Time Off",
+    "startTime": "9:00am",
+    "endTime": "5:00pm",
+    "bgColor": "bg-[#ffe8e8]",
+    "rectColor": "bg-[#f01616]"
+  },
+  {
+    "date": "2025-08-03",
+    "title": "Finalize Q3 budget",
+    "type": "Tasks",
+    "startTime": "2:00pm",
+    "endTime": "3:00pm",
+    "bgColor": "bg-[#f6f8f5]",
+    "rectColor": "bg-[#697d67]"
+  },
+  {
+    "date": "2025-08-05",
+    "title": "Team brainstorming",
+    "type": "Meetings",
+    "startTime": "10:00am",
+    "endTime": "11:30am",
+    "bgColor": "bg-[#defcbd]",
+    "rectColor": "bg-[#b8df91]"
+  },
+  {
+    "date": "2025-08-06",
+    "title": "Review Ad Campaign Results",
+    "type": "Meetings",
+    "startTime": "1:00pm",
+    "endTime": "2:30pm",
+    "bgColor": "bg-[#defcbd]",
+    "rectColor": "bg-[#b8df91]"
+  },
+  {
+    "date": "2025-08-07",
+    "title": "Client Kick-off: New Branding",
+    "type": "Project Requests",
+    "startTime": "1:00pm",
+    "endTime": "2:00pm",
+    "bgColor": "bg-[#fff8ec]",
+    "rectColor": "bg-[#ca820e]"
+  },
+  {
+    "date": "2025-08-11",
+    "title": "Design review with client",
+    "type": "Meetings",
+    "startTime": "9:30am",
+    "endTime": "10:30am",
+    "bgColor": "bg-[#defcbd]",
+    "rectColor": "bg-[#b8df91]"
+  },
+  {
+    "date": "2025-08-11",
+    "title": "Marketing sync-up",
+    "type": "Meetings",
+    "startTime": "3:00pm",
+    "endTime": "4:00pm",
+    "bgColor": "bg-[#defcbd]",
+    "rectColor": "bg-[#b8df91]"
+  },
+  {
+    "date": "2025-08-11",
+    "title": "Submit weekly report",
+    "type": "Tasks",
+    "startTime": "4:30pm",
+    "endTime": "5:00pm",
+    "bgColor": "bg-[#f6f8f5]",
+    "rectColor": "bg-[#697d67]"
+  },
+  {
+    "date": "2025-08-11",
+    "title": "Renew Adobe contract",
+    "type": "Contract Renewal",
+    "startTime": "11:00am",
+    "endTime": "11:30am",
+    "bgColor": "bg-[#fffef6]",
+    "rectColor": "bg-[#facb40]"
+  },
+  {
+    "date": "2025-08-12",
+    "title": "Microsoft Office 365 Renewal",
+    "type": "Contract Renewal",
+    "startTime": "1:00pm",
+    "endTime": "1:30pm",
+    "bgColor": "bg-[#fffef6]",
+    "rectColor": "bg-[#facb40]"
+  },
+  {
+    "date": "2025-08-14",
+    "title": "Doctor's Appointment",
+    "type": "Time Off",
+    "startTime": "8:30am",
+    "endTime": "9:30am",
+    "bgColor": "bg-[#ffe8e8]",
+    "rectColor": "bg-[#f01616]"
+  },
+  {
+    "date": "2025-08-15",
+    "title": "Summer Friday",
+    "type": "Holidays",
+    "startTime": "9:00am",
+    "endTime": "5:00pm",
+    "bgColor": "bg-[#ebf1ff]",
+    "rectColor": "bg-[#3a76ff]"
+  },
+  {
+    "date": "2025-08-18",
+    "title": "Review new feature requests",
+    "type": "Project Requests",
+    "startTime": "10:00am",
+    "endTime": "11:00am",
+    "bgColor": "bg-[#fff8ec]",
+    "rectColor": "bg-[#ca820e]"
+  },
+  {
+    "date": "2025-08-20",
+    "title": "Submit project proposal",
+    "type": "Project Requests",
+    "startTime": "4:00pm",
+    "endTime": "4:30pm",
+    "bgColor": "bg-[#fff8ec]",
+    "rectColor": "bg-[#ca820e]"
+  },
+  {
+    "date": "2025-08-22",
+    "title": "Company Holiday",
+    "type": "Holidays",
+    "startTime": "9:00am",
+    "endTime": "5:00pm",
+    "bgColor": "bg-[#ebf1ff]",
+    "rectColor": "bg-[#3a76ff]"
+  },
+  {
+    "date": "2025-08-25",
+    "title": "Review vendor contracts",
+    "type": "Contract Renewal",
+    "startTime": "2:30pm",
+    "endTime": "4:00pm",
+    "bgColor": "bg-[#fffef6]",
+    "rectColor": "bg-[#facb40]"
+  },
+  {
+    "date": "2025-08-26",
+    "title": "Dentist Appointment",
+    "type": "Time Off",
+    "startTime": "3:30pm",
+    "endTime": "4:30pm",
+    "bgColor": "bg-[#ffe8e8]",
+    "rectColor": "bg-[#f01616]"
+  },
+  {
+    "date": "2025-08-29",
+    "title": "Performance reviews due",
+    "type": "Tasks",
+    "startTime": "5:00pm",
+    "endTime": "5:30pm",
+    "bgColor": "bg-[#f6f8f5]",
+    "rectColor": "bg-[#697d67]"
+  },
+  {
+    "date": "2025-08-30",
+    "title": "Saint Rose of Lima Day",
+    "type": "Holidays",
+    "startTime": "9:00am",
+    "endTime": "5:00pm",
+    "bgColor": "bg-[#ebf1ff]",
+    "rectColor": "bg-[#3a76ff]"
+  },
+  {
+    "date": "2025-09-01",
+    "title": "Labor Day (USA)",
+    "type": "Holidays",
+    "startTime": "9:00am",
+    "endTime": "5:00pm",
+    "bgColor": "bg-[#ebf1ff]",
+    "rectColor": "bg-[#3a76ff]"
+  },
+  {
+    "date": "2025-09-05",
+    "title": "Q4 Strategy Kick-off",
+    "type": "Meetings",
+    "startTime": "10:00am",
+    "endTime": "11:00am",
+    "bgColor": "bg-[#defcbd]",
+    "rectColor": "bg-[#b8df91]"
+  },
+  {
+    "date": "2025-09-08",
+    "title": "Onboarding for New Hires",
+    "type": "Meetings",
+    "startTime": "9:00am",
+    "endTime": "12:00pm",
+    "bgColor": "bg-[#defcbd]",
+    "rectColor": "bg-[#b8df91]"
+  },
+  {
+    "date": "2025-09-10",
+    "title": "New Project Proposal: Mobile App",
+    "type": "Project Requests",
+    "startTime": "2:00pm",
+    "endTime": "3:00pm",
+    "bgColor": "bg-[#fff8ec]",
+    "rectColor": "bg-[#ca820e]"
+  },
+  {
+    "date": "2025-09-12",
+    "title": "Prepare presentation for board",
+    "type": "Tasks",
+    "startTime": "1:00pm",
+    "endTime": "5:00pm",
+    "bgColor": "bg-[#f6f8f5]",
+    "rectColor": "bg-[#697d67]"
+  },
+  {
+    "date": "2025-09-15",
+    "title": "Board Meeting",
+    "type": "Meetings",
+    "startTime": "9:00am",
+    "endTime": "11:00am",
+    "bgColor": "bg-[#defcbd]",
+    "rectColor": "bg-[#b8df91]"
+  },
+  {
+    "date": "2025-09-19",
+    "title": "Company Offsite Event",
+    "type": "Time Off",
+    "startTime": "9:00am",
+    "endTime": "5:00pm",
+    "bgColor": "bg-[#ffe8e8]",
+    "rectColor": "bg-[#f01616]"
+  },
+  {
+    "date": "2025-09-23",
+    "title": "Finalize Q4 Marketing Plan",
+    "type": "Tasks",
+    "startTime": "10:00am",
+    "endTime": "12:00pm",
+    "bgColor": "bg-[#f6f8f5]",
+    "rectColor": "bg-[#697d67]"
+  },
+  {
+    "date": "2025-09-25",
+    "title": "Renew Zoom License",
+    "type": "Contract Renewal",
+    "startTime": "3:00pm",
+    "endTime": "3:15pm",
+    "bgColor": "bg-[#fffef6]",
+    "rectColor": "bg-[#facb40]"
+  },
+  {
+    "date": "2025-09-30",
+    "title": "End of Q3 Review",
+    "type": "Meetings",
+    "startTime": "4:00pm",
+    "endTime": "5:00pm",
+    "bgColor": "bg-[#defcbd]",
+    "rectColor": "bg-[#b8df91]"
+  }
+]

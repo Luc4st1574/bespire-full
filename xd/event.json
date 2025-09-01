@@ -1,0 +1,38 @@
+[
+  {
+    "_id": "68b5d58c4a75a3f48010007a",
+    "name": "Meetings",
+    "bgColor": "bg-[#defcbd]",
+    "rectColor": "bg-[#b8df91]"
+  },
+  {
+    "_id": "68b5d58c4a75a3f48010007b",
+    "name": "Holidays",
+    "bgColor": "bg-[#ebf1ff]",
+    "rectColor": "bg-[#3a76ff]"
+  },
+  {
+    "_id": "68b5d58c4a75a3f48010007c",
+    "name": "Project Requests",
+    "bgColor": "bg-[#fff8ec]",
+    "rectColor": "bg-[#ca820e]"
+  },
+  {
+    "_id": "68b5d58c4a75a3f48010007d",
+    "name": "Tasks",
+    "bgColor": "bg-[#f6f8f5]",
+    "rectColor": "bg-[#697d67]"
+  },
+  {
+    "_id": "68b5d58c4a75a3f48010007e",
+    "name": "Contract Renewal",
+    "bgColor": "bg-[#fffef6]",
+    "rectColor": "bg-[#facb40]"
+  },
+  {
+    "_id": "68b5d58c4a75a3f48010007f",
+    "name": "Time Off",
+    "bgColor": "bg-[#ffe8e8]",
+    "rectColor": "bg-[#f01616]"
+  }
+]
