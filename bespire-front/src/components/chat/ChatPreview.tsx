@@ -1,37 +1,36 @@
 "use client";
-import React, { useState } from "react";
+
+import React from "react";
 import Image from "next/image";
 import { Popover, Transition } from "@headlessui/react";
-import chatsData from "@/data/chats.json";
+import { useAppContext, Chat } from "@/context/AppContext";
 import IconMessage from "@/assets/icons/icon_message.svg";
 import ProgressLink from "../ui/ProgressLink";
 import { parseTimeAgo } from "@/utils/parseTimeAgo";
 
-interface Chat {
-  id: number;
-  name: string;
-  avatar: string;
-  lastMessage: string;
-  timestamp: string;
-  unreadCount: number;
-  isOnline: boolean;
-  conversation: { sender: string; text: string; timestamp: string }[];
-}
-
 export default function ChatPreview() {
-  const [chats, setChats] = useState<Chat[]>(chatsData);
+  // Use chats and functions from the global context
+  const { chats, markAllChatsAsRead } = useAppContext();
 
-  const handleMarkAllAsRead = () => {
-    const updatedChats = chats.map((chat) => ({ ...chat, unreadCount: 0 }));
-    setChats(updatedChats);
+  const getPreviewChats = () => {
+    const unreadChats = chats
+      .filter((c) => c.unreadCount > 0)
+      .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+
+    const readChats = chats
+      .filter((c) => c.unreadCount === 0)
+      .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+
+    const previewChats = unreadChats.slice(0, 4);
+
+    if (previewChats.length < 4) {
+      const needed = 4 - previewChats.length;
+      previewChats.push(...readChats.slice(0, needed));
+    }
+    return previewChats;
   };
 
-  const sortedChats = [...chats].sort((a, b) => {
-    if (a.unreadCount > 0 && b.unreadCount === 0) return -1;
-    if (b.unreadCount > 0 && a.unreadCount === 0) return 1;
-    return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
-  });
-
+  const sortedChats = getPreviewChats();
   const unreadConversationsCount = chats.filter((c) => c.unreadCount > 0).length;
 
   return (
@@ -46,7 +45,6 @@ export default function ChatPreview() {
             title="Messages"
           >
             <IconMessage className="w-5 h-5" />
-
             {unreadConversationsCount > 0 && (
               <span
                 className="absolute -top-0.5 -right-0.5 flex items-center justify-center w-4 h-4 text-xs font-bold text-gray-800 bg-[#c2ef9b] rounded-full"
@@ -74,7 +72,7 @@ export default function ChatPreview() {
                 <div className="p-4 flex justify-between items-center">
                   <h3 className="font-normal text-lg text-gray-800">Messages</h3>
                   <button
-                    onClick={handleMarkAllAsRead}
+                    onClick={markAllChatsAsRead}
                     className="text-sm text-black underline"
                   >
                     Mark all as read
@@ -82,7 +80,7 @@ export default function ChatPreview() {
                 </div>
 
                 <div className="max-h-96 overflow-y-auto">
-                  {sortedChats.map((chat) => (
+                  {sortedChats.map((chat: Chat) => (
                     <ProgressLink
                       key={chat.id}
                       href={`/chat?id=${chat.id}`}

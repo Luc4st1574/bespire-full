@@ -8,7 +8,7 @@ import IconMessage from "@/assets/icons/icon_message.svg";
 
 // A component to show when no chat is selected.
 const NoChatSelected = () => (
-    <div className="flex flex-col items-center justify-center h-full w-full text-center text-gray-500 bg-gray-50">
+    <div className="flex flex-col items-center w-full text-center text-gray-500 pt-42">
         <IconMessage className="w-24 h-24 text-gray-300 mb-4" />
         <h2 className="text-xl font-semibold text-gray-700">Welcome to your Messages</h2>
         <p>Select a conversation from the left to start chatting</p>

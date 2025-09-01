@@ -12,10 +12,24 @@
     "phone": "+1 (555) 123-4567",
     "organization": "Spherule",
     "timezone": "PST",
-    "socials": {
-      "linkedin": "https://linkedin.com/in/iyaowolabi",
-      "facebook": "https://facebook.com/iyaowolabi"
-    },
+    "sharedLinks": [
+      "https://www.projectmanager.com/guides/project-management",
+      "https://www.atlassian.com/agile"
+    ],
+    "media": [
+      {
+        "url": "/assets/media/image1.jpg",
+        "thumbnail": "/assets/media/thumb1.jpg",
+        "type": "image",
+        "timestamp": "2025-08-28T10:15:00-05:00"
+      },
+      {
+        "url": "/assets/media/video1.mp4",
+        "thumbnail": "/assets/media/thumb_video1.jpg",
+        "type": "video",
+        "timestamp": "2025-08-27T14:30:00-05:00"
+      }
+    ],
     "sharedFiles": [
       { "name": "Project Brief.pdf", "size": "1.2 MB", "type": "pdf" },
       { "name": "User Flow.fig", "size": "3.4 MB", "type": "fig" }
@@ -40,9 +54,17 @@
     "phone": "+1 (555) 987-6543",
     "organization": "Spherule",
     "timezone": "EST",
-    "socials": {
-      "linkedin": "https://linkedin.com/in/glinda"
-    },
+    "sharedLinks": [
+      "https://react.dev/"
+    ],
+    "media": [
+      {
+        "url": "/assets/media/image2.jpg",
+        "thumbnail": "/assets/media/thumb2.jpg",
+        "type": "image",
+        "timestamp": "2025-08-29T09:44:00-05:00"
+      }
+    ],
     "sharedFiles": [
       { "name": "API_Documentation.docx", "size": "876 KB", "type": "doc" },
       { "name": "Frontend_Components.zip", "size": "12.1 MB", "type": "zip" }
@@ -66,9 +88,8 @@
     "phone": "+1 (555) 234-5678",
     "organization": "Bespire",
     "timezone": "CST",
-    "socials": {
-      "linkedin": "https://linkedin.com/in/gerarddesign"
-    },
+    "sharedLinks": [],
+    "media": [],
     "sharedFiles": [
       { "name": "Dashboard_Mockups.psd", "size": "25.8 MB", "type": "psd" }
     ],
@@ -91,10 +112,10 @@
     "phone": "+1 (555) 876-5432",
     "organization": "Client Corp",
     "timezone": "PST",
-    "socials": {
-      "linkedin": "https://linkedin.com/in/michelleclient",
-      "facebook": "https://facebook.com/michelleclient"
-    },
+    "sharedLinks": [
+      "https://www.similarweb.com/"
+    ],
+    "media": [],
     "sharedFiles": [
       { "name": "Presentation_Deck.pptx", "size": "5.6 MB", "type": "pptx" },
       { "name": "Brand_Assets.zip", "size": "32.4 MB", "type": "zip" },
@@ -105,5 +126,41 @@
       { "sender": "You", "text": "Just sent them to your email.", "timestamp": "Yesterday" },
       { "sender": "Michelle", "text": "Perfect, thanks!", "timestamp": "Yesterday" }
     ]
+  },
+  {
+    "id": 5,
+    "name": "Nathaniel",
+    "avatar": "https://xsgames.co/randomusers/assets/avatars/male/46.jpg",
+    "lastMessage": null,
+    "timestamp": "2025-08-26T10:00:00-05:00",
+    "unreadCount": 0,
+    "isOnline": true,
+    "role": "Marketing Head",
+    "email": "nathaniel.m@example.com",
+    "phone": "+1 (555) 111-2222",
+    "organization": "Bespire",
+    "timezone": "EST",
+    "sharedLinks": [],
+    "media": [],
+    "sharedFiles": [],
+    "conversation": []
+  },
+  {
+    "id": 6,
+    "name": "Bernard",
+    "avatar": "https://xsgames.co/randomusers/assets/avatars/male/32.jpg",
+    "lastMessage": null,
+    "timestamp": "2025-08-25T15:20:00-05:00",
+    "unreadCount": 0,
+    "isOnline": false,
+    "role": "Accountant",
+    "email": "bernard.a@example.com",
+    "phone": "+1 (555) 333-4444",
+    "organization": "Spherule",
+    "timezone": "CST",
+    "sharedLinks": [],
+    "media": [],
+    "sharedFiles": [],
+    "conversation": []
   }
 ]

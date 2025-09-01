@@ -27,11 +27,12 @@ export default function SidebarMenuSection({
   
   // Helper function to check if a menu item is active
   const isActive = (path: string) => {
+    // Make sure path is not null or undefined before calling startsWith
+    if (!path) return false; 
     return pathname === path || pathname.startsWith(path + '/');
   };
 
   useEffect(() => {
-    // Al cargar, abre automáticamente los submenús activos
     const openDefaults: Record<string, boolean> = {};
     items.forEach((item) => {
       // Special case for File Manager - expand if we're in any /files route
@@ -43,7 +44,17 @@ export default function SidebarMenuSection({
         openDefaults[item.label] = true;
       }
     });
-    setOpenMenus((prev) => ({ ...prev, ...openDefaults }));
+
+    // **THE FIX**: Only update state if the default open menus have actually changed.
+    setOpenMenus((prevOpenMenus) => {
+      const hasChanged = Object.keys(openDefaults).some(
+        (key) => prevOpenMenus[key] !== openDefaults[key]
+      );
+      if (hasChanged) {
+        return { ...prevOpenMenus, ...openDefaults };
+      }
+      return prevOpenMenus;
+    });
   }, [pathname, items]);
 
   const toggleMenu = (label: string) => {
@@ -71,7 +82,6 @@ export default function SidebarMenuSection({
                 (isActive(item.href) || hasSubActive) &&
                   "bg-[#CEFFA3] text-[#181B1A]"
               )}>
-                {/* Área principal de navegación */}
                 <ProgressLink
                   href={item.href}
                   className="flex-1 flex items-center gap-2 px-3 py-2"
@@ -85,9 +95,9 @@ export default function SidebarMenuSection({
                   {item.label}
                 </ProgressLink>
 
-                {/* Área de expansión/badge */}
                 {item.children ? (
                   <button
+                    title={`Toggle submenu for ${item.label}`}
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();

@@ -7,6 +7,7 @@ import React, {
   useState,
   useEffect,
   useMemo,
+  useCallback, // Import useCallback
   Dispatch,
   SetStateAction,
 } from "react";
@@ -15,7 +16,49 @@ import { GET_USER_PROFILE } from "@/graphql/queries/getUserProfile";
 import { decodeJWT } from "@/utils/jwt";
 import { GET_WORKSPACE_BASIS_BY_ID } from "@/graphql/queries/workspace/getWorkspaceBasisById";
 import { REFRESH_TOKEN } from "@/graphql/mutations/auth/refreshToken";
+import chatsData from "@/data/chats.json"; 
 
+// --- Type Definitions ---
+type Media = {
+  url: string;
+  thumbnail: string;
+  type: 'image' | 'video';
+  timestamp: string;
+};
+
+type SharedFile = {
+    name: string;
+    size: string;
+    type: string;
+};
+
+type ConversationMessage = {
+    sender: string;
+    text: string;
+    timestamp: string;
+};
+
+export type Chat = {
+  id: number;
+  name: string;
+  avatar: string;
+  isOnline: boolean;
+  timestamp: string;
+  lastMessage: string | null;
+  unreadCount: number;
+  role: string;
+  email: string;
+  phone: string;
+  organization: string;
+  timezone: string;
+  sharedLinks: string[];
+  media: Media[];
+  sharedFiles: SharedFile[];
+  conversation: ConversationMessage[];
+};
+
+
+// --- Main App Context Type ---
 type AppContextType = {
   token: string | null;
   setToken: (token: string | null) => void;
@@ -28,13 +71,10 @@ type AppContextType = {
   loadingWorkspace: boolean;
   refetchUser: () => void;
   refetchWorkspace: () => void;
-  //para el modal de request
   showModalRequest: boolean;
   setShowModalRequest: Dispatch<SetStateAction<boolean>>;
   parentId: string | null;
   setParentId: Dispatch<SetStateAction<string | null>>;
-
-  // ADDED FOR EDITOR
   isEditorMode: boolean;
   setIsEditorMode: Dispatch<SetStateAction<boolean>>;
   editorFileName: string;
@@ -43,34 +83,52 @@ type AppContextType = {
   setSaveDoc: Dispatch<SetStateAction<() => void>>;
   cancelEdit: () => void;
   setCancelEdit: Dispatch<SetStateAction<() => void>>;
-  
   editorTags: string[];
   setEditorTags: Dispatch<SetStateAction<string[]>>;
+  chats: Chat[];
+  markChatAsRead: (chatId: number) => void;
+  markAllChatsAsRead: () => void;
 };
 
 export const AppContext = createContext<AppContextType | null>(null);
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
-  // --- Auth token y user ---
   const [token, setToken] = useState<string | null>(null);
   const [tokenLoaded, setTokenLoaded] = useState(false);
-
-  //para el modal de request
   const [showModalRequest, setShowModalRequest] = useState(false);
   const [parentId, setParentId] = useState<string | null>(null);
-
-  // ADDED FOR EDITOR: State for the document editor view
   const [isEditorMode, setIsEditorMode] = useState(false);
   const [editorFileName, setEditorFileName] = useState("");
   const [saveDoc, setSaveDoc] = useState<() => void>(() => () => {});
   const [cancelEdit, setCancelEdit] = useState<() => void>(() => () => {});
-
-  // NEW: ADDED FOR EDITOR TAGS
   const [editorTags, setEditorTags] = useState<string[]>([]);
-
   const [refreshTokenMutation] = useMutation(REFRESH_TOKEN);
 
-  // Leer token de localStorage sólo en el cliente
+  const [chats, setChats] = useState<Chat[]>(() =>
+    [...(chatsData as Chat[])].sort((a, b) => {
+        if (a.unreadCount > 0 && b.unreadCount === 0) return -1;
+        if (b.unreadCount > 0 && a.unreadCount === 0) return 1;
+        if (a.lastMessage && !b.lastMessage) return -1;
+        if (!a.lastMessage && b.lastMessage) return 1;
+        return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+    })
+  );
+
+  // **THE FIX**: Wrap state-updating functions in useCallback
+  const markChatAsRead = useCallback((chatId: number) => {
+    setChats(prevChats =>
+      prevChats.map(chat =>
+        chat.id === chatId ? { ...chat, unreadCount: 0 } : chat
+      )
+    );
+  }, []);
+
+  const markAllChatsAsRead = useCallback(() => {
+    setChats(prevChats =>
+      prevChats.map(chat => ({ ...chat, unreadCount: 0 }))
+    );
+  }, []);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const t = localStorage.getItem("token");
@@ -79,13 +137,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  // Decodifica el JWT solo si existe
   const decoded = useMemo(
     () => (token ? decodeJWT(token) : null),
     [token]
   );
 
-  // User Profile Query
   const {
     data: userData,
     loading: loadingUserQuery,
@@ -95,7 +151,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     fetchPolicy: "network-only",
   });
 
-  // Workspace Profile Query
   const workspaceId = userData?.getUserProfile?.workspaceSelected;
   const {
     data: workspaceData,
@@ -107,29 +162,22 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     fetchPolicy: "network-only",
   });
 
-  // Permisos del JWT (del backend)
   const permissions: string[] = useMemo(() => decoded?.permissions || [], [decoded]);
   const workspaceRole: string | undefined = decoded?.workspaceRole;
   const role: string | undefined = decoded?.role;
-
-  // --- Estado de loading global ---
   const loadingUser = !tokenLoaded || loadingUserQuery;
   const loadingWorkspace = loadingUser || loadingWorkspaceQuery;
-
-  // Refetch wrappers para evitar errores si las funciones no están definidas
   const refetchUser = React.useCallback(() => refetchUserRaw && refetchUserRaw(), [refetchUserRaw]);
   const refetchWorkspace = React.useCallback(() => refetchWorkspaceRaw && refetchWorkspaceRaw(), [refetchWorkspaceRaw]);
   
-  // Remover console.logs para mejorar performance
   if (process.env.NODE_ENV === 'development') {
     console.log("AppContext: userData", userData);
-    console.log("AppContext: workspaceData", workspaceData);  
+    console.log("AppContext: workspaceData", workspaceData);   
     console.log("AppContext: permissions", permissions);
     console.log("AppContext: workspaceRole", workspaceRole);
     console.log("AppContext: role", role);
   }
 
-  // Valor global del context - optimizado para evitar re-renders
   const value = useMemo(
     () => ({
       token,
@@ -147,7 +195,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       setShowModalRequest,
       parentId,
       setParentId,
-      // ADDED FOR EDITOR
       isEditorMode,
       setIsEditorMode,
       editorFileName,
@@ -158,6 +205,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       setCancelEdit,
       editorTags,
       setEditorTags,
+      chats,
+      markChatAsRead,
+      markAllChatsAsRead,
     }),
     [
       token, 
@@ -174,11 +224,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       editorFileName, 
       saveDoc, 
       cancelEdit, 
-      editorTags
+      editorTags,
+      chats,
+      markChatAsRead,
+      markAllChatsAsRead
     ]
   );
 
-  // Refresca el token
   useEffect(() => {
     if (token) {
       refreshTokenMutation()
@@ -198,7 +250,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
 
-// Hook para usar el context
 export function useAppContext() {
   const ctx = useContext(AppContext);
   if (!ctx) throw new Error("useAppContext must be used within AppProvider");

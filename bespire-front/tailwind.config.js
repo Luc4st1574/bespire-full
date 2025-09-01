@@ -50,5 +50,6 @@ module.exports = {
     forms,
     typography,
     tailwindScrollbar,
+    lineClamp,
   ],
 };
