@@ -66,7 +66,7 @@ const ChatList: React.FC<ChatListProps> = ({ chats, selectedId, searchTerm, onSe
                                         ) : (
                                             <div>
                                                 <p className="text-xs text-gray-500">{chat.name} joined the team</p>
-                                                <p className="text-xs text-blue-500 font-semibold">Say hi!</p>
+                                                <p className="text-xs text-gray-500">Say hi!</p>
                                             </div>
                                         )}
                                         {chat.unreadCount > 0 && (
