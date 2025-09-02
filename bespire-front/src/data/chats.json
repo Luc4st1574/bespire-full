@@ -12,6 +12,7 @@
     "phone": "+1 (555) 123-4567",
     "organization": "Spherule",
     "timezone": "PST",
+    "location": "San Francisco, CA",
     "sharedLinks": [
       "https://www.projectmanager.com/guides/project-management",
       "https://www.atlassian.com/agile"
@@ -54,6 +55,7 @@
     "phone": "+1 (555) 987-6543",
     "organization": "Spherule",
     "timezone": "EST",
+    "location": "New York, NY",
     "sharedLinks": [
       "https://react.dev/"
     ],
@@ -88,6 +90,7 @@
     "phone": "+1 (555) 234-5678",
     "organization": "Bespire",
     "timezone": "CST",
+    "location": "Chicago, IL",
     "sharedLinks": [],
     "media": [],
     "sharedFiles": [
@@ -112,6 +115,7 @@
     "phone": "+1 (555) 876-5432",
     "organization": "Client Corp",
     "timezone": "PST",
+    "location": "Los Angeles, CA",
     "sharedLinks": [
       "https://www.similarweb.com/"
     ],
@@ -140,6 +144,7 @@
     "phone": "+1 (555) 111-2222",
     "organization": "Bespire",
     "timezone": "EST",
+    "location": "Boston, MA",
     "sharedLinks": [],
     "media": [],
     "sharedFiles": [],
@@ -158,6 +163,7 @@
     "phone": "+1 (555) 333-4444",
     "organization": "Spherule",
     "timezone": "CST",
+    "location": "Austin, TX",
     "sharedLinks": [],
     "media": [],
     "sharedFiles": [],
