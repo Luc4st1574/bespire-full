@@ -46,8 +46,7 @@ const DashboardLayout = React.memo(({
 
           <div className="flex flex-col flex-1 min-w-0">
             <Header />
-            {/* Main content area now correctly handles chat page height */}
-            <main className={`flex-1 p-6 ${isChatPage ? 'flex flex-col' : 'overflow-y-auto'}`}>
+            <main className={`flex-1 p-6 ${isChatPage ? 'flex flex-col overflow-hidden' : 'overflow-y-auto'}`}>
               <div className={`flex gap-6 ${isChatPage ? 'flex-1' : 'flex-col lg:flex-row'}`}>
                 <div className={`min-w-0 ${isChatPage ? 'flex flex-1' : 'flex-1'}`}>
                   {children}

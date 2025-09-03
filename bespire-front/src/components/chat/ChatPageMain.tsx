@@ -21,7 +21,7 @@ export default function ChatPageMain({ chatId }: { chatId: string | null }) {
         : null;
 
     return (
-        <div className="flex flex-1 gap-6">
+        <div className="flex flex-1 gap-6 min-h-0">
         {selectedChat ? (
             <>
             <ChatsDisplay chat={selectedChat} />
