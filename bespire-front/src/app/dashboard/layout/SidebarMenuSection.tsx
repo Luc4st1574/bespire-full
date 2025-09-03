@@ -25,37 +25,38 @@ export default function SidebarMenuSection({
   const pathname = usePathname();
   const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({});
   
-  // Helper function to check if a menu item is active
   const isActive = (path: string) => {
-    // Make sure path is not null or undefined before calling startsWith
     if (!path) return false; 
     return pathname === path || pathname.startsWith(path + '/');
   };
 
+  // This revised useEffect hook prevents re-render loops.
   useEffect(() => {
-    const openDefaults: Record<string, boolean> = {};
+    // We only want this effect to run when the page's URL changes.
+    // It checks which parent menus have an active child link.
+    const menusToOpen: Record<string, boolean> = {};
     items.forEach((item) => {
-      // Special case for File Manager - expand if we're in any /files route
-      if (item.label === "File Manager" && pathname.startsWith("/files")) {
-        openDefaults[item.label] = true;
-      }
-      // General case - expand if any child is active
-      else if (item.children?.some((sub) => isActive(sub.href))) {
-        openDefaults[item.label] = true;
+      if (item.children?.some((sub) => isActive(sub.href))) {
+        menusToOpen[item.label] = true;
       }
     });
 
-    // **THE FIX**: Only update state if the default open menus have actually changed.
+    // To prevent unnecessary re-renders, we only update the state
+    // if a menu needs to be opened.
     setOpenMenus((prevOpenMenus) => {
-      const hasChanged = Object.keys(openDefaults).some(
-        (key) => prevOpenMenus[key] !== openDefaults[key]
-      );
-      if (hasChanged) {
-        return { ...prevOpenMenus, ...openDefaults };
+      const menusThatNeedOpening = Object.keys(menusToOpen).filter(key => !prevOpenMenus[key]);
+      if (menusThatNeedOpening.length > 0) {
+        const newState = { ...prevOpenMenus };
+        menusThatNeedOpening.forEach(key => {
+          newState[key] = true;
+        });
+        return newState;
       }
       return prevOpenMenus;
     });
-  }, [pathname, items]);
+  // By removing 'items' from the dependency array, we break the infinite loop.
+  // This is safe because the menu structure itself doesn't change.
+  }, [pathname]);
 
   const toggleMenu = (label: string) => {
     setOpenMenus((prev) => ({ ...prev, [label]: !prev[label] }));

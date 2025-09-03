@@ -1,10 +1,11 @@
-// layouts/DashboardLayout.tsx
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
+import { usePathname } from "next/navigation";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { Toaster } from "sonner";
 import AuthGuard from "@/guards/AuthGuard";
-import { useState } from "react";
 import { AuthProvider } from "@/hooks/useAuth";
 
 interface DashboardLayoutProps {
@@ -17,42 +18,40 @@ const DashboardLayout = React.memo(({
   sidebar,
 }: DashboardLayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const pathname = usePathname();
+  // Check if the current route starts with /chat
+  const isChatPage = pathname.startsWith('/chat');
 
   return (
     <AuthProvider>
       <AuthGuard requireWorkspace>
         <div className="flex h-screen bg-[#fbfff7] text-sm text-brand-dark">
-          {/* Sidebar Desktop */}
           <div className="hidden lg:flex lg:flex-shrink-0">
             <div className="w-64">
               <Sidebar />
             </div>
           </div>
 
-          {/* Sidebar Mobile - Overlay */}
           {isSidebarOpen && (
             <div className="lg:hidden fixed inset-0 z-50 flex">
-              {/* Backdrop */}
               <div
                 className="fixed inset-0 bg-black opacity-10"
                 onClick={() => setIsSidebarOpen(false)}
               />
-              {/* Sidebar */}
               <div className="relative flex flex-col w-64 bg-white">
                 <Sidebar />
               </div>
             </div>
           )}
 
-          {/* Main Content */}
           <div className="flex flex-col flex-1 min-w-0">
             <Header />
-            <main className="flex-1 overflow-y-auto p-6">
-              <div className="flex flex-col lg:flex-row gap-6">
-                {/* Contenido principal */}
-                <div className="flex-1 min-w-0">{children}</div>
-
-                {/* Sidebar derecho si existe */}
+            {/* Main content area now correctly handles chat page height */}
+            <main className={`flex-1 p-6 ${isChatPage ? 'flex flex-col' : 'overflow-y-auto'}`}>
+              <div className={`flex gap-6 ${isChatPage ? 'flex-1' : 'flex-col lg:flex-row'}`}>
+                <div className={`min-w-0 ${isChatPage ? 'flex flex-1' : 'flex-1'}`}>
+                  {children}
+                </div>
                 {sidebar && (
                   <aside className="w-full lg:w-[250px] shrink-0">
                     {sidebar}
@@ -64,11 +63,9 @@ const DashboardLayout = React.memo(({
               position="bottom-right"
               expand={false}
               duration={3000}
-              closeButton={false} // lo hacemos manual
+              closeButton={false}
               className="z-[100]"
-              toastOptions={{
-                unstyled: true, // para usar solo tus clases
-              }}
+              toastOptions={{ unstyled: true }}
             />
           </div>
         </div>

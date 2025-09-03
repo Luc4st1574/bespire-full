@@ -33,7 +33,7 @@ export default function ChatsDisplay({ chat }: ChatsDisplayProps) {
     if (!chat) return null;
 
     return (
-        <div className="flex flex-col h-full w-full border-r border-gray-200">
+        <div className="flex flex-col h-full w-full border border-gray-200 rounded-md shadow-sm overflow-hidden">
             <div className="flex items-center justify-between gap-4 p-4 border-b border-gray-200">
                 <div className="flex items-center gap-4">
                     <Image src={chat.avatar} alt={chat.name} width={40} height={40} className="rounded-full" />
@@ -57,7 +57,7 @@ export default function ChatsDisplay({ chat }: ChatsDisplayProps) {
                 {chat.conversation.map((msg, index) => (
                     <div key={index} className={`flex items-end gap-3 ${msg.sender === 'You' ? 'justify-end' : 'justify-start'}`}>
                         {msg.sender !== 'You' && <Image src={chat.avatar} alt={chat.name} width={32} height={32} className="rounded-full"/>}
-                        <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${msg.sender === 'You' ? 'bg-[#CEFFA3] text-gray-800 rounded-br-none' : 'bg-white text-gray-800 shadow-sm rounded-bl-none'}`}>
+                        <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-md border border-gray-200 ${msg.sender === 'You' ? 'bg-[#CEFFA3] text-gray-800 rounded-br-none' : 'bg-white text-gray-800 shadow-sm rounded-bl-none'}`}>
                             <p>{msg.text}</p>
                             <p className="text-xs text-gray-400 mt-1 text-right">{msg.timestamp}</p>
                         </div>
@@ -71,7 +71,7 @@ export default function ChatsDisplay({ chat }: ChatsDisplayProps) {
                     <input
                         type="text"
                         placeholder="Type a message..."
-                        className="w-full pl-12 pr-20 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500"
+                        className="w-full pl-12 pr-20 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-0"
                     />
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                         <button className="p-2 text-gray-500 hover:text-gray-700" title="Attach file">
