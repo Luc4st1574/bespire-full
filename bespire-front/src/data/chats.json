@@ -36,10 +36,26 @@
       { "name": "User Flow.fig", "size": "3.4 MB", "type": "fig" }
     ],
     "conversation": [
-      { "sender": "Iya Owolabi", "text": "Hey, how's the project coming along?", "timestamp": "10:20 AM" },
-      { "sender": "You", "text": "Pretty good! I'm just finishing up the design mockups. Should be ready for review this afternoon.", "timestamp": "10:22 AM" },
-      { "sender": "Iya Owolabi", "text": "Great to hear. Do you need any of the assets I mentioned last week?", "timestamp": "10:25 AM" },
-      { "sender": "Iya Owolabi", "text": "Sounds good to me! I'll get it over to you...", "timestamp": "10:30 AM" }
+      {
+        "sender": "Iya Owolabi",
+        "text": "Hey, how's the project coming along?",
+        "timestamp": "2025-09-02T10:20:00.000Z"
+      },
+      {
+        "sender": "You",
+        "text": "Pretty good! I'm just finishing up the design mockups. Should be ready for review this afternoon.",
+        "timestamp": "2025-09-02T10:22:00.000Z"
+      },
+      {
+        "sender": "Iya Owolabi",
+        "text": "Great to hear. Do you need any of the assets I mentioned last week?",
+        "timestamp": "2025-09-03T15:25:00.000Z"
+      },
+      {
+        "sender": "Iya Owolabi",
+        "text": "Sounds good to me! I'll get it over to you...",
+        "timestamp": "2025-09-03T15:30:00.000Z"
+      }
     ]
   },
   {
@@ -72,9 +88,21 @@
       { "name": "Frontend_Components.zip", "size": "12.1 MB", "type": "zip" }
     ],
     "conversation": [
-      { "sender": "You", "text": "Hey Glinda, I've pushed the latest changes to the staging server. Can you take a look?", "timestamp": "9:40 AM" },
-      { "sender": "Glinda", "text": "Sure, I'll check it out now. I have a couple of quick questions about the implementation.", "timestamp": "9:42 AM" },
-      { "sender": "Glinda", "text": "Let's touch base in the morning to finalize...", "timestamp": "9:45 AM" }
+      {
+        "sender": "You",
+        "text": "Hey Glinda, I've pushed the latest changes to the staging server. Can you take a look?",
+        "timestamp": "2025-09-03T09:40:00.000Z"
+      },
+      {
+        "sender": "Glinda",
+        "text": "Sure, I'll check it out now. I have a couple of quick questions about the implementation.",
+        "timestamp": "2025-09-03T09:42:00.000Z"
+      },
+      {
+        "sender": "Glinda",
+        "text": "Let's touch base in the morning to finalize...",
+        "timestamp": "2025-09-03T09:45:00.000Z"
+      }
     ]
   },
   {
@@ -97,9 +125,21 @@
       { "name": "Dashboard_Mockups.psd", "size": "25.8 MB", "type": "psd" }
     ],
     "conversation": [
-      { "sender": "You", "text": "The final designs for the dashboard are ready for your review.", "timestamp": "Yesterday" },
-      { "sender": "Gerard", "text": "Awesome, I'll take a look right now.", "timestamp": "Yesterday" },
-      { "sender": "Gerard", "text": "The new design looks great! Good job.", "timestamp": "Yesterday" }
+      {
+        "sender": "You",
+        "text": "The final designs for the dashboard are ready for your review.",
+        "timestamp": "2025-09-02T12:00:00.000Z"
+      },
+      {
+        "sender": "Gerard",
+        "text": "Awesome, I'll take a look right now.",
+        "timestamp": "2025-09-02T12:01:00.000Z"
+      },
+      {
+        "sender": "Gerard",
+        "text": "The new design looks great! Good job.",
+        "timestamp": "2025-09-02T12:05:00.000Z"
+      }
     ]
   },
   {
@@ -126,9 +166,21 @@
       { "name": "Quarterly_Report.pdf", "size": "2.1 MB", "type": "pdf" }
     ],
     "conversation": [
-      { "sender": "Michelle", "text": "Can you send over the latest files for the client presentation?", "timestamp": "Yesterday" },
-      { "sender": "You", "text": "Just sent them to your email.", "timestamp": "Yesterday" },
-      { "sender": "Michelle", "text": "Perfect, thanks!", "timestamp": "Yesterday" }
+      {
+        "sender": "Michelle",
+        "text": "Can you send over the latest files for the client presentation?",
+        "timestamp": "2025-09-01T16:15:00.000Z"
+      },
+      {
+        "sender": "You",
+        "text": "Just sent them to your email.",
+        "timestamp": "2025-09-02T14:05:00.000Z"
+      },
+      {
+        "sender": "Michelle",
+        "text": "Perfect, thanks!",
+        "timestamp": "2025-09-02T14:06:00.000Z"
+      }
     ]
   },
   {
