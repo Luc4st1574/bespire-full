@@ -4,7 +4,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import {
     Paperclip, MoreHorizontal, Phone, Video,
-    Bold, Italic, Underline, AtSign, Smile
+    Bold, Italic, Underline, AtSign, Smile,
+    Link as LinkIcon
 } from 'lucide-react';
 import { Popover } from '@headlessui/react';
 
@@ -14,13 +15,15 @@ import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { LinkNode } from '@lexical/link';
+import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
+import { $createLinkNode, LinkNode } from '@lexical/link'; // MODIFIED
 import { ListItemNode, ListNode } from '@lexical/list';
 import { mergeRegister } from '@lexical/utils';
 import {
     $getSelection,
     $isRangeSelection,
     $getRoot,
+    $createTextNode, // ADDED
     FORMAT_TEXT_COMMAND,
     COMMAND_PRIORITY_LOW,
     SELECTION_CHANGE_COMMAND,
@@ -28,6 +31,8 @@ import {
     TextNode,
     SerializedTextNode,
     $applyNodeReplacement,
+    KEY_DOWN_COMMAND,
+    COMMAND_PRIORITY_NORMAL,
 } from 'lexical';
 // Assumed path for the EmojiPicker component
 import EmojiPicker from '../ui/EmojiPicker';
@@ -55,7 +60,6 @@ const currentUser = {
     avatar: "/assets/icons/default_avatar.svg"
 };
 
-// Data for @mentions
 const people = [
     { id: '1', name: 'Gerard Santos', avatar: '/assets/avatars/gerard.png' },
     { id: '2', name: 'Nathaniel Co', avatar: '/assets/avatars/nathaniel.png' },
@@ -68,7 +72,7 @@ export class MentionNode extends TextNode {
     static clone(node: MentionNode): MentionNode { return new MentionNode(node.__text, node.__key); }
     createDOM(config: EditorConfig): HTMLElement {
         const dom = super.createDOM(config);
-        dom.className = 'text-blue-600 font-semibold'; // Style for mentions
+        dom.className = 'text-blue-600 font-semibold';
         return dom;
     }
     static importJSON(serializedNode: SerializedTextNode): MentionNode {
@@ -90,13 +94,13 @@ export function $createMentionNode(text: string): MentionNode {
     return $applyNodeReplacement(mentionNode);
 }
 
-// 2. Editor Theme and Nodes
 const editorTheme = {
     text: {
         bold: 'font-bold',
         italic: 'italic',
         underline: 'underline',
     },
+    link: 'text-blue-600 underline',
 };
 
 const editorNodes = [MentionNode, LinkNode, ListNode, ListItemNode];
@@ -115,6 +119,7 @@ function ToolbarPlugin() {
     const [isUnderline, setIsUnderline] = useState(false);
     const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
     const emojiButtonRef = useRef<HTMLButtonElement>(null);
+    const [linkUrl, setLinkUrl] = useState('');
 
     const updateToolbar = React.useCallback(() => {
         const selection = $getSelection();
@@ -156,6 +161,28 @@ function ToolbarPlugin() {
             }
         });
     };
+    
+    // --- THIS IS THE NEW, MORE ROBUST FUNCTION ---
+    const handleInsertLink = () => {
+        if (linkUrl.trim() === '') {
+            return;
+        }
+        const url = /^(https?:\/\/)/i.test(linkUrl) ? linkUrl : `https://${linkUrl}`;
+        
+        editor.update(() => {
+            const selection = $getSelection();
+            if ($isRangeSelection(selection)) {
+                // 1. Create the link node with the URL
+                const linkNode = $createLinkNode(url);
+                // 2. Create a text node that will be the link's visible text
+                const textNode = $createTextNode(url);
+                // 3. Attach the text node to the link node
+                linkNode.append(textNode);
+                // 4. Insert the complete link node at the current cursor position
+                selection.insertNodes([linkNode]);
+            }
+        });
+    };
 
     return (
         <div className="flex items-center gap-1">
@@ -186,6 +213,39 @@ function ToolbarPlugin() {
             >
                 <Underline size={18} />
             </button>
+
+            <Popover className="relative">
+                {({ close }) => (
+                <>
+                    <Popover.Button type="button" className="p-1.5 rounded hover:bg-gray-200 text-gray-600" title="Add Link">
+                        <LinkIcon size={18} />
+                    </Popover.Button>
+                    <Popover.Panel className="absolute bottom-full left-0 z-10 mb-2 w-max rounded-md bg-white shadow-lg p-2">
+                        <div className="flex items-center gap-2">
+                            <input
+                                type="text"
+                                value={linkUrl}
+                                onChange={(e) => setLinkUrl(e.target.value)}
+                                placeholder="https://example.com"
+                                className="w-48 p-1.5 border border-gray-300 rounded-md text-sm focus:ring-0 focus:outline-none"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    handleInsertLink();
+                                    setLinkUrl('');
+                                    close(); 
+                                }}
+                                className={`px-4 py-1.5 text-white text-sm font-semibold rounded-full transition-colors bg-[#697d67] hover:bg-[#556654]`}
+                            >
+                                Send
+                            </button>
+                        </div>
+                    </Popover.Panel>
+                </>
+                )}
+            </Popover>
+            
             <button type="button" className="p-1.5 rounded hover:bg-gray-200 text-gray-600" title="Attach file">
                 <Paperclip size={18} />
             </button>
@@ -274,20 +334,8 @@ export default function ChatsDisplay({ chat }: ChatsDisplayProps) {
         const [editor] = useLexicalComposerContext();
         const [canSend, setCanSend] = useState(false);
         const editorStateRef = useRef<string>('');
-
-        useEffect(() => {
-            return editor.registerUpdateListener(({ editorState }) => {
-                editorState.read(() => {
-                    const rootElement = editor.getRootElement();
-                    const textContent = $getRoot().getTextContent();
-                    
-                    editorStateRef.current = rootElement ? rootElement.innerHTML : '';
-                    setCanSend(textContent.trim() !== '');
-                });
-            });
-        }, [editor]);
         
-        const onSend = () => {
+        const onSend = React.useCallback(() => {
             const currentEditorState = editorStateRef.current;
             if (!canSend || !currentEditorState || currentEditorState.trim() === '' || currentEditorState.trim() === '<p><br></p>') {
                 return;
@@ -301,13 +349,40 @@ export default function ChatsDisplay({ chat }: ChatsDisplayProps) {
 
             setMessages(prevMessages => [...prevMessages, newMessage]);
             
-            // Using editor.update for a more direct clearing method
             editor.update(() => {
                 const root = $getRoot();
                 root.clear();
             });
             editor.focus();
-        }
+        }, [canSend, editor]);
+
+        useEffect(() => {
+            const unregister = mergeRegister(
+                editor.registerUpdateListener(({ editorState }) => {
+                    editorState.read(() => {
+                        const rootElement = editor.getRootElement();
+                        const textContent = $getRoot().getTextContent();
+                        
+                        editorStateRef.current = rootElement ? rootElement.innerHTML : '';
+                        setCanSend(textContent.trim() !== '');
+                    });
+                }),
+                editor.registerCommand(
+                    KEY_DOWN_COMMAND,
+                    (event: KeyboardEvent) => {
+                        if (event.key === 'Enter' && !event.shiftKey) {
+                            event.preventDefault();
+                            onSend();
+                            return true; // Command was handled
+                        }
+                        return false; // Command was not handled
+                    },
+                    COMMAND_PRIORITY_NORMAL,
+                )
+            );
+            return () => unregister();
+        }, [editor, onSend]);
+        
 
         return (
             <button
@@ -356,39 +431,51 @@ export default function ChatsDisplay({ chat }: ChatsDisplayProps) {
                 </div>
             </div>
 
-            <div className="h-[calc(100vh-300px)] overflow-y-auto p-6 space-y-6 bg-white no-scrollbar">
-                {messages.map((msg, index) => {
-                    const prevMsg = messages[index - 1];
-                    const showDateSeparator = !prevMsg || new Date(msg.timestamp).toDateString() !== new Date(prevMsg.timestamp).toDateString();
-                    const isCurrentUser = msg.sender === 'You';
-                    const senderName = isCurrentUser ? currentUser.name : chat.name;
-                    const senderAvatar = isCurrentUser ? currentUser.avatar : chat.avatar;
+            <div className="h-[calc(100vh-300px)] overflow-y-auto p-6 bg-white no-scrollbar">
+                {messages.length > 0 ? (
+                    <div className="space-y-6">
+                        {messages.map((msg, index) => {
+                            const prevMsg = messages[index - 1];
+                            const showDateSeparator = !prevMsg || new Date(msg.timestamp).toDateString() !== new Date(prevMsg.timestamp).toDateString();
+                            const isCurrentUser = msg.sender === 'You';
+                            const senderName = isCurrentUser ? currentUser.name : chat.name;
+                            const senderAvatar = isCurrentUser ? currentUser.avatar : chat.avatar;
 
-                    return (
-                        <React.Fragment key={index}>
-                            {showDateSeparator && (
-                                <div className="text-center my-2">
-                                    <span className="text-xs text-gray-500">
-                                        {formatDateSeparator(msg.timestamp)}
-                                    </span>
-                                </div>
-                            )}
-                            <div className="flex items-start gap-4">
-                                <Image src={senderAvatar} alt={senderName} width={40} height={40} className="rounded-full mt-1" />
-                                <div className="flex flex-col">
-                                    <div className="flex items-baseline gap-2">
-                                        <h4 className="font-semibold text-gray-900">{senderName}</h4>
-                                        <p className="text-xs text-gray-400">
-                                            {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                        </p>
+                            return (
+                                <React.Fragment key={index}>
+                                    {showDateSeparator && (
+                                        <div className="text-center my-2">
+                                            <span className="text-xs text-gray-500">
+                                                {formatDateSeparator(msg.timestamp)}
+                                            </span>
+                                        </div>
+                                    )}
+                                    <div className="flex items-start gap-4">
+                                        <Image src={senderAvatar} alt={senderName} width={40} height={40} className="rounded-full mt-1" />
+                                        <div className="flex flex-col">
+                                            <div className="flex items-baseline gap-2">
+                                                <h4 className="font-semibold text-gray-900">{senderName}</h4>
+                                                <p className="text-xs text-gray-400">
+                                                    {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                </p>
+                                            </div>
+                                            <div className="text-gray-700" dangerouslySetInnerHTML={{ __html: msg.text }} />
+                                        </div>
                                     </div>
-                                    <div className="text-gray-700" dangerouslySetInnerHTML={{ __html: msg.text }} />
-                                </div>
-                            </div>
-                        </React.Fragment>
-                    );
-                })}
-                <div ref={messagesEndRef} />
+                                </React.Fragment>
+                            );
+                        })}
+                        <div ref={messagesEndRef} />
+                    </div>
+                ) : (
+                    <div className="flex h-full flex-col items-center justify-center gap-4 text-center pb-24">
+                        <div className="text-gray-500">
+                            <p>This is your first conversation</p>
+                            <p>with {chat.name}. Say hi!</p>
+                        </div>
+                        <span className="text-5xl">👋</span>
+                    </div>
+                )}
             </div>
 
             <form onSubmit={(e) => e.preventDefault()} className="px-6 -mt-8 pb-6 bg-white">
@@ -396,12 +483,13 @@ export default function ChatsDisplay({ chat }: ChatsDisplayProps) {
                     <LexicalComposer initialConfig={editorConfig}>
                         <div className="relative">
                             <RichTextPlugin
-                                contentEditable={<ContentEditable className="w-full min-h-[80px] p-3 text-sm text-gray-800 resize-none focus:outline-none" />}
+                                contentEditable={<ContentEditable className="w-full min-h-[40px] p-3 text-sm text-gray-800 resize-none focus:outline-none" />}
                                 placeholder={<div className="absolute top-3 left-3 text-sm text-gray-400 pointer-events-none">Type a message...</div>}
                                 ErrorBoundary={CustomErrorBoundary}
                             />
                         </div>
                         <HistoryPlugin />
+                        <LinkPlugin />
                         <div className="flex items-center justify-between p-2">
                             <ToolbarPlugin />
                             <ActionsPlugin />
