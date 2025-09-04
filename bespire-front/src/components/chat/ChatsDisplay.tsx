@@ -391,7 +391,7 @@ export default function ChatsDisplay({ chat }: ChatsDisplayProps) {
                 <div ref={messagesEndRef} />
             </div>
 
-            <form onSubmit={(e) => e.preventDefault()} className="px-6 -mt-9 pb-6 bg-white">
+            <form onSubmit={(e) => e.preventDefault()} className="px-6 -mt-8 pb-6 bg-white">
                 <div className="border border-gray-300 rounded-lg overflow-hidden bg-white">
                     <LexicalComposer initialConfig={editorConfig}>
                         <div className="relative">
