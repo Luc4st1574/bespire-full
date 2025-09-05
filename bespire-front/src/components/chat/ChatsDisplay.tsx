@@ -30,6 +30,7 @@ export default function ChatsDisplay({ chat }: ChatsDisplayProps) {
     const handleSendMessage = (text: string, attachments: Attachment[]) => {
         if (!chat) return;
         const newMessage: ConversationMessage = {
+        id: crypto.randomUUID(), // Generate a unique id for the message
         sender: 'You',
         text: text,
         timestamp: new Date().toISOString(),

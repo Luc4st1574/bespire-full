@@ -7,6 +7,8 @@ import {
 } from 'lucide-react';
 import { Popover } from '@headlessui/react';
 import { getFileIcon } from '@/utils/getFileIcon';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 // --- LEXICAL IMPORTS ---
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
@@ -87,7 +89,7 @@ const editorTheme = {
 
 const editorNodes = [MentionNode, LinkNode, ListNode, ListItemNode];
 
-const editorConfig = {
+export const editorConfig = {
     namespace: 'ChatEditor',
     theme: editorTheme,
     nodes: editorNodes,
@@ -107,67 +109,64 @@ class CustomErrorBoundary extends React.Component<ErrorBoundaryProps> {
     }
 }
 
-// --- HELPER COMPONENTS ---
-const UploadingSpinner = () => (
-    <svg className="animate-spin h-8 w-8 text-[#697d67]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-    </svg>
-);
-
 const AttachmentPreviewArea = ({ attachments, onRemove }: { attachments: Attachment[]; onRemove: (id: string) => void; }) => {
     return (
-        <div className="flex flex-wrap items-start gap-2 p-3 border-b border-gray-200">
+        <div className="flex flex-wrap items-start gap-2 p-3"> {/* <- Line removed from here */}
             {attachments.map(att => {
                 const isImage = att.preview && att.file.type.startsWith('image/');
 
                 return (
                     <div
                         key={att.id}
-                        // Base styles for all attachments
-                        className={`relative flex items-center bg-white border border-gray-200 rounded-lg shadow-sm group transition-all duration-300 ease-in-out
-                                    ${isImage ? 'h-16 w-16 hover:w-28' : 'h-16 w-60'}`}
+                        className={`relative flex items-center bg-white border border-gray-200 rounded-lg shadow-sm group transition-all duration-300 ease-in-out h-16
+                                    ${isImage
+                                        ? (att.status === 'uploading' ? 'w-28' : 'w-16 hover:w-28')
+                                        : 'w-60'
+                                    }`}
                     >
+                        {/* Image Preview / File Icon (Always visible) */}
+                        <div className={`flex-shrink-0 flex items-center justify-center
+                                        ${isImage ? 'absolute top-1 left-1 h-14 w-14 rounded-md overflow-hidden' : 'w-12 h-full pl-3'}`}>
+                            {isImage ? (
+                                <Image src={att.preview!} alt={att.file.name} layout="fill" objectFit="cover" />
+                            ) : (
+                                <Image src={getFileIcon(att.file.name)} alt="file icon" width={32} height={32} />
+                            )}
+                        </div>
+
+                        {/* File Details (renders ONLY for non-images when upload is complete) */}
+                        {!isImage && att.status === 'completed' && (
+                            <div className="flex-1 px-3 min-w-0">
+                                <p className="text-sm font-medium text-gray-900 truncate">
+                                    {att.file.name.split('.')[0]}
+                                </p>
+                                <p className="text-xs text-gray-500">
+                                    {att.file.name.split('.').pop()?.toUpperCase()} file
+                                </p>
+                            </div>
+                        )}
+
+                        {/* Conditional Overlay: Spinner or X button */}
                         {att.status === 'uploading' ? (
-                            <div className="w-full h-full flex items-center justify-center rounded-lg">
-                                <UploadingSpinner />
+                            <div className="absolute top-1/2 -translate-y-1/2 right-2 z-10">
+                                <FontAwesomeIcon
+                                    icon={faSpinner}
+                                    spin
+                                    style={{ color: '#697d67' }}
+                                    size="lg"
+                                />
                             </div>
                         ) : (
-                            <>
-                                {/* Image Preview (now absolutely positioned to prevent stretching) / File Icon */}
-                                <div className={`flex-shrink-0 flex items-center justify-center
-                                                ${isImage ? 'absolute top-1 left-1 h-14 w-14 rounded-md overflow-hidden' : 'w-12 h-full pl-3'}`}>
-                                    {isImage ? (
-                                        <Image src={att.preview!} alt={att.file.name} layout="fill" objectFit="cover" />
-                                    ) : (
-                                        <Image src={getFileIcon(att.file.name)} alt="file icon" width={32} height={32} />
-                                    )}
-                                </div>
-
-                                {/* File Details (renders ONLY for non-images) */}
-                                {!isImage && (
-                                    <div className="flex-1 px-3 min-w-0">
-                                        <p className="text-sm font-medium text-gray-900 truncate">
-                                            {att.file.name.split('.')[0]}
-                                        </p>
-                                        <p className="text-xs text-gray-500">
-                                            {att.file.name.split('.').pop()?.toUpperCase()} file
-                                        </p>
-                                    </div>
-                                )}
-
-                                {/* Remove Button (icon only, no background) */}
-                                <button
-                                    onClick={() => onRemove(att.id)}
-                                    className="absolute top-1/2 -translate-y-1/2 right-2 z-10 p-1
-                                                flex items-center justify-center
-                                                text-gray-400 opacity-0 group-hover:opacity-100
-                                                group-hover:text-gray-700 transition-opacity"
-                                    title="Remove file"
-                                >
-                                    <X size={28} strokeWidth={2.5} />
-                                </button>
-                            </>
+                            <button
+                                onClick={() => onRemove(att.id)}
+                                className="absolute top-1/2 -translate-y-1/2 right-2 z-10 p-1
+                                            flex items-center justify-center
+                                            text-gray-400 opacity-0 group-hover:opacity-100
+                                            group-hover:text-gray-700 transition-opacity"
+                                title="Remove file"
+                            >
+                                <X size={28} strokeWidth={2.5} />
+                            </button>
                         )}
                     </div>
                 );
@@ -367,17 +366,20 @@ export default function ChatInput({ onSendMessage }: ChatInputProps) {
     function ActionsPlugin() {
         const [editor] = useLexicalComposerContext();
         const [canSend, setCanSend] = useState(false);
+        // This ref will now store the editor state as a JSON string
         const editorStateRef = useRef<string>('');
-        
+
         const onSend = React.useCallback(() => {
+            // Parse the JSON string to get the editor state object
             const currentEditorState = editorStateRef.current;
-            const hasText = canSend && currentEditorState.trim() !== '' && currentEditorState.trim() !== '<p><br></p>';
+            const hasText = canSend; // canSend is already tracking if text exists
             const hasAttachments = attachments.length > 0;
 
             if (!hasText && !hasAttachments) return;
 
             onSendMessage(
-                currentEditorState,
+                // Send the parsed JSON object, not a string
+                hasText ? JSON.parse(currentEditorState) : null,
                 attachments.filter(a => a.status === 'completed')
             );
 
@@ -387,29 +389,29 @@ export default function ChatInput({ onSendMessage }: ChatInputProps) {
         }, [canSend, editor]);
 
         useEffect(() => {
-        const unregister = mergeRegister(
-            editor.registerUpdateListener(({ editorState }) => {
-                editorState.read(() => {
-                    const rootElement = editor.getRootElement();
-                    const textContent = $getRoot().getTextContent();
-                    editorStateRef.current = rootElement ? rootElement.innerHTML : '';
-                    setCanSend(textContent.trim() !== '');
-                });
-            }),
-            editor.registerCommand(
-                KEY_DOWN_COMMAND,
-                (event: KeyboardEvent) => {
-                    if (event.key === 'Enter' && !event.shiftKey) {
-                        event.preventDefault();
-                        onSend();
-                        return true;
-                    }
-                    return false;
-                },
-                COMMAND_PRIORITY_NORMAL,
-            )
-        );
-        return () => unregister();
+            const unregister = mergeRegister(
+                editor.registerUpdateListener(({ editorState }) => {
+                    editorState.read(() => {
+                        const textContent = $getRoot().getTextContent();
+                        // Serialize the editor state to a JSON string
+                        editorStateRef.current = JSON.stringify(editorState.toJSON());
+                        setCanSend(textContent.trim() !== '');
+                    });
+                }),
+                editor.registerCommand(
+                    KEY_DOWN_COMMAND,
+                    (event: KeyboardEvent) => {
+                        if (event.key === 'Enter' && !event.shiftKey) {
+                            event.preventDefault();
+                            onSend();
+                            return true;
+                        }
+                        return false;
+                    },
+                    COMMAND_PRIORITY_NORMAL,
+                )
+            );
+            return () => unregister();
         }, [editor, onSend]);
         
         const isSendDisabled = !canSend && attachments.length === 0;

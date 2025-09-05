@@ -6,9 +6,10 @@ export interface Attachment {
 }
 
 export interface ConversationMessage {
+    id: string;
     sender: string;
-    text: string;
     timestamp: string;
+    text: string | null;
     attachments?: Attachment[];
 }
 
