@@ -117,38 +117,61 @@ const UploadingSpinner = () => (
 
 const AttachmentPreviewArea = ({ attachments, onRemove }: { attachments: Attachment[]; onRemove: (id: string) => void; }) => {
     return (
-        <div className="flex flex-wrap gap-2 p-3">
-            {attachments.map(att => (
-                <div key={att.id} className="relative w-48 h-16 flex items-center bg-white border border-gray-200 rounded-lg shadow-sm group">
-                    {att.status === 'uploading' ? (
-                        <div className="w-full h-full flex items-center justify-center bg-gray-50 rounded-lg">
-                            <UploadingSpinner />
-                        </div>
-                    ) : (
-                        <>
-                            {att.preview ? (
-                                <div className="relative w-1/3 h-full">
-                                    <Image src={att.preview} alt={att.file.name} layout="fill" objectFit="cover" className="rounded-l-lg" />
-                                </div>
-                            ) : (
-                                <div className="flex items-center justify-center w-1/3 h-full bg-gray-100 rounded-l-lg">
-                                    <Image src={getFileIcon(att.file.name)} alt="file icon" width={24} height={24} className="w-6 h-6" />
-                                </div>
-                            )}
-                            <div className="flex-1 px-3 text-sm truncate">
-                                {att.file.name}
+        <div className="flex flex-wrap items-start gap-2 p-3 border-b border-gray-200">
+            {attachments.map(att => {
+                const isImage = att.preview && att.file.type.startsWith('image/');
+
+                return (
+                    <div
+                        key={att.id}
+                        // Base styles for all attachments
+                        className={`relative flex items-center bg-white border border-gray-200 rounded-lg shadow-sm group transition-all duration-300 ease-in-out
+                                    ${isImage ? 'h-16 w-16 hover:w-28' : 'h-16 w-60'}`}
+                    >
+                        {att.status === 'uploading' ? (
+                            <div className="w-full h-full flex items-center justify-center rounded-lg">
+                                <UploadingSpinner />
                             </div>
-                            <button
-                                onClick={() => onRemove(att.id)}
-                                className="absolute top-1 right-1 bg-gray-800/70 hover:bg-gray-800 text-white rounded-full p-0.5 w-5 h-5 flex items-center justify-center text-sm opacity-0 group-hover:opacity-100 transition-all z-10"
-                                title="Remove file"
-                            >
-                                <X size={12} />
-                            </button>
-                        </>
-                    )}
-                </div>
-            ))}
+                        ) : (
+                            <>
+                                {/* Image Preview (now absolutely positioned to prevent stretching) / File Icon */}
+                                <div className={`flex-shrink-0 flex items-center justify-center
+                                                ${isImage ? 'absolute top-1 left-1 h-14 w-14 rounded-md overflow-hidden' : 'w-12 h-full pl-3'}`}>
+                                    {isImage ? (
+                                        <Image src={att.preview!} alt={att.file.name} layout="fill" objectFit="cover" />
+                                    ) : (
+                                        <Image src={getFileIcon(att.file.name)} alt="file icon" width={32} height={32} />
+                                    )}
+                                </div>
+
+                                {/* File Details (renders ONLY for non-images) */}
+                                {!isImage && (
+                                    <div className="flex-1 px-3 min-w-0">
+                                        <p className="text-sm font-medium text-gray-900 truncate">
+                                            {att.file.name.split('.')[0]}
+                                        </p>
+                                        <p className="text-xs text-gray-500">
+                                            {att.file.name.split('.').pop()?.toUpperCase()} file
+                                        </p>
+                                    </div>
+                                )}
+
+                                {/* Remove Button (icon only, no background) */}
+                                <button
+                                    onClick={() => onRemove(att.id)}
+                                    className="absolute top-1/2 -translate-y-1/2 right-2 z-10 p-1
+                                                flex items-center justify-center
+                                                text-gray-400 opacity-0 group-hover:opacity-100
+                                                group-hover:text-gray-700 transition-opacity"
+                                    title="Remove file"
+                                >
+                                    <X size={28} strokeWidth={2.5} />
+                                </button>
+                            </>
+                        )}
+                    </div>
+                );
+            })}
         </div>
     );
 };
